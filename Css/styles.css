@@ -1,11 +1,13 @@
 /* Sticky footer styles */
 html {
-  background: url(Images\dakota-roos-1311.jpg) no-repeat center fixed;
-  background-size: cover;
   position: relative;
   min-height: 100%;
 }
 body {
+  background-image: url("../Images/background.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
