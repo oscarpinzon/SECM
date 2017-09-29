@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1 , maximum-scale=1, user-scalable=no">
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
   <title>SECM</title>
 
@@ -12,6 +12,8 @@
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
     crossorigin="anonymous">
+
+  <link rel="stylesheet" href="Css/styles.css">
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -40,8 +42,10 @@
       <div class="collapse navbar-collapse" id="barra-navegacion">
         <ul class="nav navbar-nav">
           <li class="active"><a href="#">Inicio<span class="sr-only">(current)</span></a></li>
-          <li class=""><a href="#">Link 1<span class="sr-only">(current)</span></a></li>
-          <li class=""><a href="#">Link 2<span class="sr-only">(current)</span></a></li>
+          <li class=""><a href="#">Funciones</a></li>
+          <li class=""><a href="#">Cotizar</a></li>
+          <li class=""><a href="#">Mis Listas</a></li>
+          <li class=""><a href="#">Nosotros</a></li>
         </ul>
       </div>
       <!-- /.navbar-collapse -->
@@ -50,15 +54,26 @@
   </nav>
 
   <div class="container-fluid">
-    <div class="jumbotron">
-      <h1 class="text-center">Nombre App</h1>
-      <img src="Recursos\jean-francois-henri-110942.jpg" class="img-responsive" alt="Responsive image">
-      <p>Cotiza tu casa.</p>
-      <p><a class="btn btn-primary btn-lg btn-block" href="#" role="button">Cotizar</a></p>
+    <div class="row">
+      <div class="jumbotron col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+        <h1 class="text-center">Funcion Principal</h1>
+        <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum venenatis tellus elit, nec sagittis mauris luctus
+          vel. Etiam dictum ex ac tincidunt aliquet. Vestibulum eu diam vitae ligula pretium faucibus. Phasellus et nisl
+          elit. Pellentesque rutrum tristique libero, eu suscipit sapien ullamcorper nec. Orci varius natoque penatibus et
+          magnis dis parturient montes, nascetur ridiculus mus. Nullam vitae aliquet tortor. Duis feugiat diam sit amet varius
+          ornare. Nunc posuere eleifend velit, nec congue elit sagittis ut. Donec orci odio, posuere id posuere non, dignissim
+          molestie dolor.</p>
+        <img src="Images\jean-francois-henri-110942.jpg" class="img-responsive img-thumbnail" alt="Imagen de la funcion">
+        <p><a class="btn btn-primary btn-lg btn-block" href="#" role="button">Cotizar</a></p>
+      </div>
     </div>
   </div>
 
-
+  <footer class="footer">
+    <div class="container">
+      <p class="text-muted">¿Footer Info?</p>
+    </div>
+  </footer>
 
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
