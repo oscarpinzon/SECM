@@ -26,7 +26,7 @@ a:hover {
 html,
 body {
   height: 100%;
-  background: url(../Images/background.jpg) no-repeat center center fixed;
+  background: url(../Images/background_jlgt2m_c_scale,w_1400.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -151,6 +151,8 @@ body {
   .cover-container {
     width: 100%; /* Must be percentage or pixels for horizontal alignment */
   }
+  /*Change the background picture to correct size*/
+  background: url(../Images/background_jlgt2m_c_scale,w_790.jpg) no-repeat center center fixed;
 }
 
 @media (min-width: 992px) {
@@ -159,4 +161,6 @@ body {
   .cover-container {
     width: 700px;
   }
+  /*Change the background picture to correct size*/
+  background: url(../Images/background_jlgt2m_c_scale,w_1020.jpg) no-repeat center center fixed;
 }
