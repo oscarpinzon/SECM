@@ -19,6 +19,13 @@ a:hover {
   border: 1px solid #fff;
 }
 
+/*Prevent inheritance from 'body'*/
+.panel {
+  color: #333;
+  text-align: justify;
+  text-shadow: none;
+}
+
 /*
  * Base structure
  */
