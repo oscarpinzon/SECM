@@ -19,10 +19,10 @@ a:hover {
   border: 1px solid #fff;
 }
 
-/*Prevent inheritance from 'body'*/
-.panel {
-  color: #333;
-  text-align: justify;
+/*Previene que se aplique el estilo del body*/
+.jumbotron {
+  color: black;
+  text-align: left;
   text-shadow: none;
 }
 
