@@ -22,7 +22,7 @@ a:hover {
 /*Previene que se aplique el estilo del body*/
 .jumbotron {
   color: black;
-  text-align: left;
+  text-align: justify;
   text-shadow: none;
 }
 
