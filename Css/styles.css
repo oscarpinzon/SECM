@@ -20,7 +20,7 @@ a:hover {
 }
 
 /*Previene que se aplique el estilo del body*/
-.jumbotron {
+.panel {
   color: black;
   text-align: justify;
   text-shadow: none;
