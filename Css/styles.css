@@ -171,3 +171,8 @@ body {
   /*Change the background picture to correct size*/
   background: url(../Images/background_jlgt2m_c_scale,w_1020.jpg) no-repeat center center fixed;
 }
+
+/*Css extra para casos especificos*/
+.extra-bottom-margin {
+  margin-bottom: 20px;
+}
