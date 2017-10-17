@@ -171,14 +171,14 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="../Js/jquery-3.2.1.min.js"></script>
     <script src="../Js/bootstrap.min.js"></script>
-    <script type="text/javascript">
+    <script>
         $(document).ready(function () {
             $("#bloqueSelected").hide();
             $("input[name=tipoCimientoRadio]").on("change", function () {
                 var test = $(this).val();
                 if (test == "corrida") {
-                    $("#corridaSelected").slideDown();
                     $("#bloqueSelected").hide();
+                    $("#corridaSelected").slideDown();
                 }
                 else {
                     $("#corridaSelected").hide();
