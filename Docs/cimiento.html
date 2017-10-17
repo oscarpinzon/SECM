@@ -55,11 +55,11 @@
                 <div class="inner cover">
                     <h1 class="cover-heading">Cimiento (Base)</h1>
                 </div>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tristique tempor neque, eget elementum
-                    erat vulputate at. Nam eget elementum tortor.</p>
-
                 <div class="container-fluid">
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tristique tempor neque, eget elementum
+                        erat vulputate at. Nam eget elementum tortor.</p>
+
                     <div class="row">
                         <div class="col-md-6 col-md-offset-3">
                             <div class="panel panel-default">
@@ -83,42 +83,58 @@
                                         <div class="form-group">
                                             <div class="radio col-xs-4 col-xs-offset-2">
                                                 <label class="control-label">
-                                                    <input type="radio" name="tipoCimientoRadio" id="bloqueRadio" value="bloque" checked> Bloque
+                                                    <input type="radio" name="tipoCimientoRadio" id="corridaRadio" value="corrida" checked> Corrida
                                                 </label>
                                             </div>
                                             <div class="radio col-xs-4">
                                                 <label class="control-label">
-                                                    <input type="radio" name="tipoCimientoRadio" id="corridaRadio" value="corrida"> Corrida
+                                                    <input type="radio" name="tipoCimientoRadio" id="bloqueRadio" value="bloque"> Bloque
                                                 </label>
                                             </div>
                                         </div>
 
-                                        <p class="text-center">
-                                            <strong>Espesor de la Corrida</strong>
-                                        </p>
+                                        <div id="corridaSelected">
 
-                                        <div class="form-group">
-                                            <label class="control-label col-md-4 col-md-offset-2" for="largoEspesor">Largo</label>
-                                            <div class="col-md-4 input-group col-xs-10 col-xs-offset-1">
-                                                <input type="number" class="form-control" id="largoEspesor" pattern="[0-9]*" inputmode="numeric">
-                                                <span class="input-group-addon">m</span>
+                                            <p class="text-center">
+                                                <strong>Espesor de la Corrida</strong>
+                                            </p>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4 col-md-offset-2" for="largoEspesor">Largo</label>
+                                                <div class="col-md-4 input-group col-xs-10 col-xs-offset-1">
+                                                    <input type="number" class="form-control" id="largoEspesor" pattern="[0-9]*" inputmode="numeric">
+                                                    <span class="input-group-addon">m</span>
+                                                </div>
                                             </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4 col-md-offset-2" for="anchoEspesor">Ancho</label>
+                                                <div class="col-md-4 input-group col-xs-10 col-xs-offset-1">
+                                                    <input type="number" class="form-control" id="anchoEspesor" pattern="[0-9]*" inputmode="numeric">
+                                                    <span class="input-group-addon">m</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-4 col-md-offset-2" for="profundidadEspesor">Profundidad</label>
+                                                <div class="col-md-4 input-group col-xs-10 col-xs-offset-1">
+                                                    <input type="number" class="form-control" id="profundidadEspesor" pattern="[0-9]*" inputmode="numeric">
+                                                    <span class="input-group-addon">m</span>
+                                                </div>
+                                            </div>
+
                                         </div>
 
-                                        <div class="form-group">
-                                            <label class="control-label col-md-4 col-md-offset-2" for="anchoEspesor">Ancho</label>
-                                            <div class="col-md-4 input-group col-xs-10 col-xs-offset-1">
-                                                <input type="number" class="form-control" id="anchoEspesor" pattern="[0-9]*" inputmode="numeric">
-                                                <span class="input-group-addon">m</span>
-                                            </div>
-                                        </div>
+                                        <div id="bloqueSelected">
 
-                                        <div class="form-group">
-                                            <label class="control-label col-md-4 col-md-offset-2" for="profundidadEspesor">Profundidad</label>
-                                            <div class="col-md-4 input-group col-xs-10 col-xs-offset-1">
-                                                <input type="number" class="form-control" id="profundidadEspesor" pattern="[0-9]*" inputmode="numeric">
-                                                <span class="input-group-addon">m</span>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-6" for="alturaZanja">Altura de la Zanja</label>
+                                                <div class="input-group col-md-4 col-xs-10 col-xs-offset-1">
+                                                    <input type="number" class="form-control" id="alturaZanja" pattern="[0-9]*" inputmode="numeric">
+                                                    <span class="input-group-addon">m</span>
+                                                </div>
                                             </div>
+
                                         </div>
 
                                         <button class="btn btn-primary center-block">Estimar</button>
@@ -149,12 +165,28 @@
         </div>
 
     </div>
-    
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="../Js/jquery-3.2.1.min.js"></script>
     <script src="../Js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#bloqueSelected").hide();
+            $("input[name=tipoCimientoRadio]").on("change", function () {
+                var test = $(this).val();
+                if (test == "corrida") {
+                    $("#corridaSelected").slideDown();
+                    $("#bloqueSelected").hide();
+                }
+                else {
+                    $("#corridaSelected").hide();
+                    $("#bloqueSelected").slideDown();
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
