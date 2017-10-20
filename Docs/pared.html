@@ -29,7 +29,6 @@
     <div class="site-wrapper">
         <div class="site-wrapper-inner">
             <div class="cover-container">
-
                 <div class="masthead clearfix">
                     <div class="inner">
                         <h3 class="masthead-brand">SECM</h3>
@@ -48,44 +47,37 @@
                         </nav>
                     </div>
                 </div>
-
                 <div class="inner cover">
                     <h1 class="cover-heading">Pared</h1>
                 </div>
-
                 <div class="container-fluid">
-
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tristique tempor neque, eget elementum
                         erat vulputate at. Nam eget elementum tortor.</p>
-
                     <div class="row">
                         <div class="col-md-6 col-md-offset-3">
                             <div class="panel panel-default">
-
                                 <div class="panel-body">
-                                    <form class="form">
+                                    <form class="form" data-toggle="validator" role="form" onsubmit="return false">
                                         <div class="row">
                                             <div class="form-group col-xs-6">
                                                 <label class="control-label" for="longitudTotal">Longitud Total</label>
                                                 <div class="input-group">
-                                                    <input type="number" class="form-control" id="longitudTotal" pattern="[0-9]*" inputmode="numeric">
+                                                    <input type="number" class="form-control" id="longitudTotal" pattern="[0-9]*" inputmode="numeric" required>
                                                     <span class="input-group-addon">m</span>
                                                 </div>
                                             </div>
-
                                             <div class="form-group col-xs-6">
                                                 <label class="control-label" for="altura">Altura</label>
                                                 <div class="input-group">
-                                                    <input type="number" class="form-control" id="altura" pattern="[0-9]*" inputmode="numeric">
+                                                    <input type="number" class="form-control" id="altura" pattern="[0-9]*" inputmode="numeric" required>
                                                     <span class="input-group-addon">m</span>
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="row">
                                             <div class="form-group col-xs-4">
                                                 <label class="control-label" for="ventanas">Ventanas</label>
-                                                <select class="form-control" id="cantidadVentana">
+                                                <select class="form-control" id="cantidadVentanas">
                                                     <option>0</option>
                                                     <option>1</option>
                                                     <option>2</option>
@@ -99,21 +91,20 @@
                                                     <option>10</option>
                                                 </select>
                                             </div>
-
                                             <div class="form-group col-xs-8">
-                                                <label class="control-label" for="areaVentanas">Area de la Ventana</label>
+                                                <label class="control-label" for="areaVentana">Area de las Ventanas</label>
                                                 <div class="input-group">
-                                                    <input type="number" class="form-control" id="areaVentanas" pattern="[0-9]*" inputmode="numeric" disabled>
-                                                    <span class="input-group-addon">m<sup>2</sup>
+                                                    <input type="number" class="form-control" id="areaVentana" pattern="[0-9]*" inputmode="numeric" disabled>
+                                                    <span class="input-group-addon">m
+                                                        <sup>2</sup>
                                                     </span>
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="row">
                                             <div class="form-group col-xs-4">
                                                 <label class="control-label" for="puerta">Puertas</label>
-                                                <select class="form-control" id="cantidadPuerta">
+                                                <select class="form-control" id="cantidadPuertas">
                                                     <option>0</option>
                                                     <option>1</option>
                                                     <option>2</option>
@@ -127,9 +118,8 @@
                                                     <option>10</option>
                                                 </select>
                                             </div>
-
                                             <div class="form-group col-xs-8">
-                                                <label class="control-label" for="areaPuerta">Area de la Puerta</label>
+                                                <label class="control-label" for="areaPuerta">Area de las Puertas</label>
                                                 <div class="input-group">
                                                     <input type="number" class="form-control" id="areaPuerta" pattern="[0-9]*" inputmode="numeric" disabled>
                                                     <span class="input-group-addon">m
@@ -138,58 +128,78 @@
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <button class="btn btn-primary center-block">Estimar</button>
-
+                                        <button type="submit" class="btn btn-primary center-block" id="estimar">Estimar</button>
                                     </form>
-
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <a href="estimacionPartes.html" class="btn btn-default btn-lg">
                     <span class="glyphicon glyphicon-arrow-left" aria-label="regresar">
                     </span>
                 </a>
-
                 <div class="mastfoot">
                     <div class="inner">
                         <p>Creado por Oscar Pinzón y Ricardo Yi</p>
                     </div>
                 </div>
-                
             </div>
         </div>
     </div>
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="../Js/jquery-3.2.1.min.js"></script>
     <script src="../Js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
     <script>
-        $(document).ready(function () {
+        //Maneja la logica del select de las puertas y ventanas
+        $("#cantidadVentanas").change(function () {
+            var valorVentana = $(this).find(":selected").text();
+            if (valorVentana == '0') {
+                $("#areaVentana").prop('disabled', true);
+                $("#areaVentana").prop('required',false);
+                $("#areaVentana").val('');
+            } else {
+                $("#areaVentana").prop('disabled', false);
+                $("#areaVentana").prop('required',true);
+            }
+        });
+        $("#cantidadPuertas").change(function () {
+            var valorPuerta = $(this).find(":selected").text();
+            if (valorPuerta == '0') {
+                $("#areaPuerta").prop('disabled', true);
+                $("#areaPuerta").prop('required', false);
+                $("#areaPuerta").val('');
+            } else {
+                $("#areaPuerta").prop('disabled', false);
+                $("#areaPuerta").prop('required', true);
+            }
+        });
+        //Codigo que se ejecuta al hacer click en el boton 'estimar'
+        $("#estimar").click(function () {
+            //Inicializacion de las variables
+            var longitud = 0;
+            var altura = 0;
+            var cantidadVentanas = 0;
+            var cantidadPuertas = 0;
+            var areaVentanas = 0;
+            var areaPuertas = 0;
 
-            $("#cantidadVentana").change(function () {
-                var optionVal = $(this).find(":selected").text();
-                if (optionVal == '0') {
-                    $("#areaVentanas").prop('disabled', true);
-                } else {
-                    $("#areaVentanas").prop('disabled', false);
-                }
-            });
+            longitud = $("#longitudTotal").val();
+            altura = $("#altura").val();
+            cantidadVentanas = $("#cantidadVentanas").val();
+            areaVentanas = $("#areaVentana").val();
+            cantidadPuertas = $("#cantidadPuertas").val();
+            areaPuertas = $("#areaPuerta").val();
 
-            $("#cantidadPuerta").change(function () {
-                var optionVal = $(this).find(":selected").text();
-                if (optionVal == '0') {
-                    $("#areaPuerta").prop('disabled', true);
-                } else {
-                    $("#areaPuerta").prop('disabled', false);
-                }
-            });
-
+            console.log("Longitud: " + longitud);
+            console.log("Altura: " + altura);
+            console.log("# Ventanas: " + cantidadVentanas);
+            console.log("Area Ventana: " + areaVentanas);
+            console.log("# Puertas: " + cantidadPuertas);
+            console.log("Area Puerta: " + areaPuertas);
         });
     </script>
 </body>
