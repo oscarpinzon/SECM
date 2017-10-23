@@ -55,9 +55,9 @@
                         erat vulputate at. Nam eget elementum tortor.</p>
                     <div class="row">
                         <div class="col-md-6 col-md-offset-3">
-                            <div class="panel panel-default">
+                            <div class="panel panel-default" id="panel">
                                 <div class="panel-body">
-                                    <form class="form" data-toggle="validator" role="form" onsubmit="return false">
+                                    <form class="form" data-toggle="validator" role="form" onsubmit="return false" id="formulario">
                                         <div class="row">
                                             <div class="form-group col-xs-6">
                                                 <label class="control-label" for="longitudTotal">Longitud Total</label>
@@ -132,6 +132,8 @@
                                     </form>
                                 </div>
                             </div>
+                            <div class="panel hidden" id="tabla">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -159,11 +161,11 @@
             var valorVentana = $(this).find(":selected").text();
             if (valorVentana == '0') {
                 $("#areaVentana").prop('disabled', true);
-                $("#areaVentana").prop('required',false);
+                $("#areaVentana").prop('required', false);
                 $("#areaVentana").val('');
             } else {
                 $("#areaVentana").prop('disabled', false);
-                $("#areaVentana").prop('required',true);
+                $("#areaVentana").prop('required', true);
             }
         });
         $("#cantidadPuertas").change(function () {
@@ -179,27 +181,49 @@
         });
         //Codigo que se ejecuta al hacer click en el boton 'estimar'
         $("#estimar").click(function () {
-            //Inicializacion de las variables
-            var longitud = 0;
-            var altura = 0;
-            var cantidadVentanas = 0;
-            var cantidadPuertas = 0;
-            var areaVentanas = 0;
-            var areaPuertas = 0;
-
-            longitud = $("#longitudTotal").val();
-            altura = $("#altura").val();
-            cantidadVentanas = $("#cantidadVentanas").val();
-            areaVentanas = $("#areaVentana").val();
-            cantidadPuertas = $("#cantidadPuertas").val();
-            areaPuertas = $("#areaPuerta").val();
-
-            console.log("Longitud: " + longitud);
-            console.log("Altura: " + altura);
-            console.log("# Ventanas: " + cantidadVentanas);
-            console.log("Area Ventana: " + areaVentanas);
-            console.log("# Puertas: " + cantidadPuertas);
-            console.log("Area Puerta: " + areaPuertas);
+            if ($('#formulario').validator('validate').has('.has-error').length) {
+                console.log("formulario invalido");
+            }
+            else {
+                //Inicializacion de las variables
+                var longitud = 0;
+                var altura = 0;
+                var cantidadVentanas = 0;
+                var cantidadPuertas = 0;
+                var areaVentanas = 0;
+                var areaPuertas = 0;
+                // Asignacion de los valores en los campos
+                longitud = $("#longitudTotal").val();
+                altura = $("#altura").val();
+                cantidadVentanas = $("#cantidadVentanas").val();
+                areaVentanas = $("#areaVentana").val();
+                cantidadPuertas = $("#cantidadPuertas").val();
+                areaPuertas = $("#areaPuerta").val();
+                // Calculo de las variables necesarias
+                var areaTotalPared = (altura * longitud) - (cantidadVentanas * areaVentanas) - (cantidadPuertas * areaPuertas);
+                var bloquesde4 = Math.ceil(areaTotalPared / 0.086912);
+                var volumenMortero = bloquesde4 * 0.00088596;
+                var bolsasCemento = Math.ceil((volumenMortero / 3.65) * 35.7 * 1.1);
+                var yardasArena = ((volumenMortero * 4) / 3.65) * 1.1;
+                var litrosAgua = ((volumenMortero * 0.75) / 3.65) * 1000 * 1.1;
+                /* Console log para pruebas BORRAR ANTES DE TERMINAR
+                console.log("Longitud: " + longitud);
+                console.log("Altura: " + altura);
+                console.log("# Ventanas: " + cantidadVentanas);
+                console.log("Area Ventana: " + areaVentanas);
+                console.log("# Puertas: " + cantidadPuertas);
+                console.log("Area Puerta: " + areaPuertas);
+                console.log("Resultados")
+                console.log("Bolsas de Cemento: " + bolsasCemento + " bolsas");
+                console.log("Yardas Cubicas de Arena: " + Math.ceil(yardasArena) + " yardas");
+                console.log("Litros de Agua: " + Math.ceil(litrosAgua) + "l");
+                */
+                // variable que va a contener el html que se mostrara en el resultado
+                var tabla = "<table class='table'><tbody><tr><td>Bolsas de Cemento</td><td>" + bolsasCemento + "</td></tr><tr><td>Yardas Cubicas de Arena</td><td>" + Math.ceil(yardasArena) + "</td></tr><tr><td>Litros de Agua</td><td>" + Math.ceil(litrosAgua) + "</td></tr></tbody></table>";
+                $("#tabla").removeClass("hidden");
+                $("#tabla").empty();
+                $("#tabla").append(tabla);
+            }
         });
     </script>
 </body>
