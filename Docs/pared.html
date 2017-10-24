@@ -132,8 +132,24 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="panel hidden" id="tabla">
+                            <div class="panel panel-default hidden" id="tabla-panel">
+                                <div class="panel-body">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Materiales</th>
+                                                <th>Cantidad</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tabla-container">
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
+                            <div class="text-center hidden" id="generarImagen">
+                                <button class="btn btn-primary" type="button">Generar Imagen</button>
+                            </div>
+                            <div id="img-out"></div>
                         </div>
                     </div>
                 </div>
@@ -155,6 +171,7 @@
     <script src="../Js/jquery-3.2.1.min.js"></script>
     <script src="../Js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
+    <script src="../Js/html2canvas.js"></script>
     <script>
         //Maneja la logica del select de las puertas y ventanas
         $("#cantidadVentanas").change(function () {
@@ -206,7 +223,7 @@
                 var bolsasCemento = Math.ceil((volumenMortero / 3.65) * 35.7 * 1.1);
                 var yardasArena = ((volumenMortero * 4) / 3.65) * 1.1;
                 var litrosAgua = ((volumenMortero * 0.75) / 3.65) * 1000 * 1.1;
-                /* Console log para pruebas BORRAR ANTES DE TERMINAR
+                /* BORRAR ANTES DE TERMINAR Console log para pruebas
                 console.log("Longitud: " + longitud);
                 console.log("Altura: " + altura);
                 console.log("# Ventanas: " + cantidadVentanas);
@@ -218,12 +235,22 @@
                 console.log("Yardas Cubicas de Arena: " + Math.ceil(yardasArena) + " yardas");
                 console.log("Litros de Agua: " + Math.ceil(litrosAgua) + "l");
                 */
-                // variable que va a contener el html que se mostrara en el resultado
-                var tabla = "<table class='table'><tbody><tr><td>Bolsas de Cemento</td><td>" + bolsasCemento + "</td></tr><tr><td>Yardas Cubicas de Arena</td><td>" + Math.ceil(yardasArena) + "</td></tr><tr><td>Litros de Agua</td><td>" + Math.ceil(litrosAgua) + "</td></tr></tbody></table>";
-                $("#tabla").removeClass("hidden");
-                $("#tabla").empty();
-                $("#tabla").append(tabla);
+                // Variable que va a contener el html que se mostrara en el resultado
+                var tabla = "<tr><td>Bolsas de Cemento</td><td>" + bolsasCemento + "</td></tr><tr><td>Yardas Cubicas de Arena</td><td>" + Math.ceil(yardasArena) + "</td></tr><tr><td>Litros de Agua</td><td>" + Math.ceil(litrosAgua) + "</td></tr>";
+                $("#tabla-panel").removeClass("hidden");
+                $("#generarImagen").removeClass("hidden");
+                $("#tabla-container").empty();
+                $("#tabla-container").append(tabla);
             }
+        });
+
+        $("#generarImagen").click(function () {
+            html2canvas($("#tabla-panel"), {
+                onrendered: function (canvas) {
+                    // Convert and download as image 
+                    $("#img-out").append(canvas);
+                }
+            });
         });
     </script>
 </body>
