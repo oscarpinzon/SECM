@@ -29,7 +29,7 @@
     <div class="site-wrapper">
         <div class="site-wrapper-inner">
             <div class="cover-container">
-                <div class="masthead clearfix">
+                <div class="masthead clearfix" id="heading">
                     <div class="inner">
                         <h3 class="masthead-brand">SECM</h3>
                         <nav>
@@ -146,7 +146,7 @@
                                     </table>
                                 </div>
                             </div>
-                            <div id="img-out"></div>
+                            <div class="contenedor-imagen" id="img-out"></div>
                         </div>
                     </div>
                 </div>
@@ -154,7 +154,7 @@
                     <span class="glyphicon glyphicon-arrow-left" aria-label="regresar">
                     </span>
                 </a>
-                <div class="mastfoot">
+                <div class="mastfoot" id="footer">
                     <div class="inner">
                         <p>Creado por Oscar Pinzón y Ricardo Yi</p>
                     </div>
@@ -235,6 +235,8 @@
                 */
                 // Variable que va a contener el html que se mostrara en el resultado
                 var tabla = "<tr><td>Bolsas de Cemento</td><td>" + bolsasCemento + "</td></tr><tr><td>Yardas Cubicas de Arena</td><td>" + Math.ceil(yardasArena) + "</td></tr><tr><td>Litros de Agua</td><td>" + Math.ceil(litrosAgua) + "</td></tr><tr><td>Varillas 3/8</td><td>" + Math.ceil(varilla) + "</td></tr>";
+                $("#footer").removeClass("mastfoot");
+                $("#heading").removeClass("masthead");
                 $("#tabla-panel").removeClass("hidden");
                 $("#tabla-container").empty();
                 $("#tabla-container").append(tabla);
@@ -242,8 +244,10 @@
                     onrendered: function (canvas) {
                         $("#tabla-panel").addClass("hidden");
                         $("#img-out").empty();
-                        // Convert and download as image 
-                        $("#img-out").append(canvas);
+                        // Converts canvas to an image
+                        var image = new Image();
+                        image.src = canvas.toDataURL("image/png");
+                        $("#img-out").append(image);
                     }
                 });
             }
