@@ -146,7 +146,6 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="contenedor-imagen" id="img-out"></div>
                         </div>
                     </div>
                 </div>
@@ -157,6 +156,24 @@
                 <div class="mastfoot" id="footer">
                     <div class="inner">
                         <p>Creado por Oscar Pinzón y Ricardo Yi</p>
+                    </div>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">Resultados</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="alert alert-danger hidden" role="alert" id="areaWarning">Las ventanas o paredes son muy grandes</div>
+                                <div class="extra-bottom-margin" id="img-out"></div>
+                                <div class="alert alert-info" role="alert" id="guardarHelp">Puedes salvar la tabla como una imagen</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -215,45 +232,51 @@
                 areaPuertas = $("#areaPuerta").val();
                 // Calculo de las variables necesarias
                 var areaTotalPared = (altura * longitud) - (cantidadVentanas * areaVentanas) - (cantidadPuertas * areaPuertas);
+                // Si el area resultante es negativa mostrar el error, sino continua con los calculos
                 if (areaTotalPared < 0) {
-                    // Implementar que pasa cuando resulta una area total negativa
-                    console.log("Las ventanas o paredes son muy grandes");
+                    $("#img-out").empty();
+                    $('#guardarHelp').addClass('hidden');
+                    $('#areaWarning').removeClass('hidden');
+                    $('#myModal').modal('show');
+                } else {
+                    $('#areaWarning').addClass('hidden');
+                    $('#guardarHelp').removeClass('hidden');
+                    var bloquesde4 = areaTotalPared / 0.086912;
+                    var volumenMortero = bloquesde4 * 0.00088596;
+                    var bolsasCemento = (volumenMortero / 3.65) * 35.7 * 1.1;
+                    var yardasArena = ((volumenMortero * 4) / 3.65) * 1.1;
+                    var litrosAgua = ((volumenMortero * 0.75) / 3.65) * 1000 * 1.1;
+                    var varilla = (((longitud / 1.5) * altura) * 3.28084) / 30;
+                    /* BORRAR ANTES DE TERMINAR Console log para pruebas
+                    console.log("Longitud: " + longitud);
+                    console.log("Altura: " + altura);
+                    console.log("# Ventanas: " + cantidadVentanas);
+                    console.log("Area Ventana: " + areaVentanas);
+                    console.log("# Puertas: " + cantidadPuertas);
+                    console.log("Area Puerta: " + areaPuertas);
+                    console.log("Resultados")
+                    console.log("Bolsas de Cemento: " + bolsasCemento + " bolsas");
+                    console.log("Yardas Cubicas de Arena: " + Math.ceil(yardasArena) + " yardas");
+                    console.log("Litros de Agua: " + Math.ceil(litrosAgua) + "l");
+                    */
+                    // Variable donde se almacenan los resultados para ser anexados al DOM
+                    var tabla = "<tr><td>Bolsas de Cemento</td><td>" + Math.ceil(bolsasCemento) + "</td></tr><tr><td>Yardas Cubicas de Arena</td><td>" + Math.ceil(yardasArena) + "</td></tr><tr><td>Litros de Agua</td><td>" + Math.ceil(litrosAgua) + "</td></tr><tr><td>Varillas 3/8</td><td>" + Math.ceil(varilla) + "</td></tr>";
+                    //Creacion del dom que sera convertido en canvas y luego en imagen
+                    $("#tabla-panel").removeClass("hidden");
+                    $("#tabla-container").empty();
+                    $("#tabla-container").append(tabla);
+                    html2canvas($("#tabla-panel"), {
+                        onrendered: function (canvas) {
+                            $("#tabla-panel").addClass("hidden");
+                            $("#img-out").empty();
+                            // Converts canvas to an image
+                            var image = new Image();
+                            image.src = canvas.toDataURL("image/png");
+                            $("#img-out").append(image);
+                            $('#myModal').modal('show');
+                        }
+                    });
                 }
-                var bloquesde4 = areaTotalPared / 0.086912;
-                var volumenMortero = bloquesde4 * 0.00088596;
-                var bolsasCemento = (volumenMortero / 3.65) * 35.7 * 1.1;
-                var yardasArena = ((volumenMortero * 4) / 3.65) * 1.1;
-                var litrosAgua = ((volumenMortero * 0.75) / 3.65) * 1000 * 1.1;
-                var varilla = (((longitud / 1.5) * altura) * 3.28084) / 30;
-                /* BORRAR ANTES DE TERMINAR Console log para pruebas
-                console.log("Longitud: " + longitud);
-                console.log("Altura: " + altura);
-                console.log("# Ventanas: " + cantidadVentanas);
-                console.log("Area Ventana: " + areaVentanas);
-                console.log("# Puertas: " + cantidadPuertas);
-                console.log("Area Puerta: " + areaPuertas);
-                console.log("Resultados")
-                console.log("Bolsas de Cemento: " + bolsasCemento + " bolsas");
-                console.log("Yardas Cubicas de Arena: " + Math.ceil(yardasArena) + " yardas");
-                console.log("Litros de Agua: " + Math.ceil(litrosAgua) + "l");
-                */
-                // Variable que va a contener el html que se mostrara en el resultado
-                var tabla = "<tr><td>Bolsas de Cemento</td><td>" + Math.ceil(bolsasCemento) + "</td></tr><tr><td>Yardas Cubicas de Arena</td><td>" + Math.ceil(yardasArena) + "</td></tr><tr><td>Litros de Agua</td><td>" + Math.ceil(litrosAgua) + "</td></tr><tr><td>Varillas 3/8</td><td>" + Math.ceil(varilla) + "</td></tr>";
-                $("#footer").removeClass("mastfoot");
-                $("#heading").removeClass("masthead");
-                $("#tabla-panel").removeClass("hidden");
-                $("#tabla-container").empty();
-                $("#tabla-container").append(tabla);
-                html2canvas($("#tabla-panel"), {
-                    onrendered: function (canvas) {
-                        $("#tabla-panel").addClass("hidden");
-                        $("#img-out").empty();
-                        // Converts canvas to an image
-                        var image = new Image();
-                        image.src = canvas.toDataURL("image/png");
-                        $("#img-out").append(image);
-                    }
-                });
             }
         });
     </script>

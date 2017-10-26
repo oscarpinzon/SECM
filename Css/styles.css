@@ -19,16 +19,16 @@ a:hover {
   border: 1px solid #fff;
 }
 
-/*Previene que se aplique el estilo del body al panel*/
+/*Previene que se aplique el estilo del body*/
 .panel {
   color: black;
   text-align: justify;
   text-shadow: none;
 }
 
-/*div de las imagenes*/
-.contenedor-imagen {
-  margin-bottom: 20px;
+.modal-title {
+  color: black;
+  text-shadow: none;
 }
 
 /*
