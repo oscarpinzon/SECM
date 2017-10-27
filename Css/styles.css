@@ -26,6 +26,10 @@ a:hover {
   text-shadow: none;
 }
 
+.alert {
+  text-shadow: none;
+}
+
 .modal-title {
   color: black;
   text-shadow: none;

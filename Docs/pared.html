@@ -169,9 +169,15 @@
                                 <h4 class="modal-title" id="myModalLabel">Resultados</h4>
                             </div>
                             <div class="modal-body">
-                                <div class="alert alert-danger hidden" role="alert" id="areaWarning">Las ventanas o paredes son muy grandes</div>
+                                <div class="alert alert-danger hidden" role="alert" id="areaWarning">
+                                    <span class="glyphicon glyphicon-exclamation-sign"></span>
+                                    Las ventanas o paredes son muy grandes
+                                </div>
                                 <div class="extra-bottom-margin" id="img-out"></div>
-                                <div class="alert alert-info" role="alert" id="guardarHelp">Puedes salvar la tabla como una imagen</div>
+                                <div class="alert alert-info" role="alert" id="guardarHelp">
+                                    <span class="glyphicon glyphicon-download"></span>
+                                    Puedes salvar la tabla como una imagen
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -272,6 +278,7 @@
                             // Converts canvas to an image
                             var image = new Image();
                             image.src = canvas.toDataURL("image/png");
+                            image.className += "img-responsive";
                             $("#img-out").append(image);
                             $('#myModal').modal('show');
                         }
