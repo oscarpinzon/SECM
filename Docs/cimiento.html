@@ -26,13 +26,9 @@
 </head>
 
 <body>
-
     <div class="site-wrapper">
-
         <div class="site-wrapper-inner">
-
             <div class="cover-container">
-
                 <div class="masthead clearfix">
                     <div class="inner">
                         <h3 class="masthead-brand">SECM</h3>
@@ -51,23 +47,17 @@
                         </nav>
                     </div>
                 </div>
-
                 <div class="inner cover">
                     <h1 class="cover-heading">Cimiento (Base)</h1>
                 </div>
                 <div class="container-fluid">
-
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tristique tempor neque, eget elementum
                         erat vulputate at. Nam eget elementum tortor.</p>
-
                     <div class="row">
                         <div class="col-md-6 col-md-offset-3">
                             <div class="panel panel-default">
-
                                 <div class="panel-body">
-
-                                    <form class="form-horizontal">
-
+                                    <form class="form-horizontal" data-toggle="validator" role="form" onsubmit="return false" id="formulario">
                                         <div class="form-group">
                                             <label class="control-label col-md-4 col-md-offset-2" for="longitud">Longitud</label>
                                             <div class="col-md-4 input-group col-xs-10 col-xs-offset-1">
@@ -75,11 +65,9 @@
                                                 <span class="input-group-addon">m</span>
                                             </div>
                                         </div>
-
                                         <p class="text-center">
                                             <strong>Tipo de Cimiento</strong>
                                         </p>
-
                                         <div class="form-group">
                                             <div class="radio col-xs-4 col-xs-offset-2">
                                                 <label class="control-label">
@@ -92,13 +80,10 @@
                                                 </label>
                                             </div>
                                         </div>
-
                                         <div id="corridaSelected">
-
                                             <p class="text-center">
                                                 <strong>Espesor de la Corrida</strong>
                                             </p>
-
                                             <div class="form-group">
                                                 <label class="control-label col-md-4 col-md-offset-2" for="largoEspesor">Largo</label>
                                                 <div class="col-md-4 input-group col-xs-10 col-xs-offset-1">
@@ -106,7 +91,6 @@
                                                     <span class="input-group-addon">m</span>
                                                 </div>
                                             </div>
-
                                             <div class="form-group">
                                                 <label class="control-label col-md-4 col-md-offset-2" for="anchoEspesor">Ancho</label>
                                                 <div class="col-md-4 input-group col-xs-10 col-xs-offset-1">
@@ -114,7 +98,6 @@
                                                     <span class="input-group-addon">m</span>
                                                 </div>
                                             </div>
-
                                             <div class="form-group">
                                                 <label class="control-label col-md-4 col-md-offset-2" for="profundidadEspesor">Profundidad</label>
                                                 <div class="col-md-4 input-group col-xs-10 col-xs-offset-1">
@@ -122,9 +105,7 @@
                                                     <span class="input-group-addon">m</span>
                                                 </div>
                                             </div>
-
                                         </div>
-
                                         <div id="bloqueSelected">
 
                                             <div class="form-group">
@@ -134,43 +115,33 @@
                                                     <span class="input-group-addon">m</span>
                                                 </div>
                                             </div>
-
                                         </div>
-
                                         <button class="btn btn-primary center-block">Estimar</button>
-
                                     </form>
-
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
                 </div>
-
                 <a href="estimacionPartes.html" class="btn btn-default btn-lg">
                     <span class="glyphicon glyphicon-arrow-left" aria-label="regresar">
                     </span>
                 </a>
-
                 <div class="mastfoot">
                     <div class="">
                         <p>Creado por Oscar Pinzón y Ricardo Yi</p>
                     </div>
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="../Js/jquery-3.2.1.min.js"></script>
     <script src="../Js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
+    <script src="../Js/html2canvas.js"></script>
     <script>
         $(document).ready(function () {
             $("#bloqueSelected").hide();

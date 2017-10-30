@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,6 +20,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
+
 <body>
     <div class="site-wrapper">
         <div class="site-wrapper-inner">
@@ -57,7 +59,8 @@
                                             <div class="input-group">
                                                 <input type="number" class="form-control" id="sumaAreas" pattern="[0-9]*" step="0.1" min="0.1" inputmode="numeric" required>
                                                 <span class="input-group-addon">
-                                                    m<sup>2</sup>
+                                                    m
+                                                    <sup>2</sup>
                                                 </span>
                                             </div>
                                         </div>
@@ -74,6 +77,20 @@
                                         </div>
                                         <button class="btn btn-primary center-block" id="estimar">Estimar</button>
                                     </form>
+                                </div>
+                            </div>
+                            <div class="panel panel-default hidden" id="tabla-panel">
+                                <div class="panel-body">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Materiales</th>
+                                                <th>Cantidad</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tabla-container">
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -99,10 +116,6 @@
                                 <h4 class="modal-title" id="myModalLabel">Resultados</h4>
                             </div>
                             <div class="modal-body">
-                                <div class="alert alert-danger hidden" role="alert" id="areaWarning">
-                                    <span class="glyphicon glyphicon-exclamation-sign"></span>
-                                    Las ventanas o paredes son muy grandes
-                                </div>
                                 <div class="extra-bottom-margin" id="img-out"></div>
                                 <div class="alert alert-info" role="alert" id="guardarHelp">
                                     <span class="glyphicon glyphicon-download"></span>
@@ -137,7 +150,51 @@
                 // Asignacion de los valores
                 sumaAreas = $("#sumaAreas").val();
                 // Calculo de las variables
-                
+                if ($('input[name=tipoRepelloRadio]:checked', '#formulario').val() === "grueso") {
+                    volumenRepello = sumaAreas * 0.03;
+                    cemento = ((volumenRepello / 3.65) * 35.7) * 1.1;
+                    arena = ((4 * volumenRepello) / 3.65) * 1.1;
+                    agua = ((0.75 * volumenRepello) / 3.65) * 1000 * 1.1;
+                    var tabla = "<tr><td>Sacos de Cemento</td><td>" + Math.ceil(cemento) + "</td></tr><tr><td>Yardas Cubicas de Arena</td><td>" + Math.ceil(arena) + "</td></tr><tr><td>Litros de Agua</td><td>" + Math.ceil(agua) + "</td></tr>";
+                    //Creacion del dom que sera convertido en canvas y luego en imagen
+                    $("#tabla-panel").removeClass("hidden");
+                    $("#tabla-container").empty();
+                    $("#tabla-container").append(tabla);
+                    html2canvas($("#tabla-panel"), {
+                        onrendered: function (canvas) {
+                            $("#tabla-panel").addClass("hidden");
+                            $("#img-out").empty();
+                            // Converts canvas to an image
+                            var image = new Image();
+                            image.src = canvas.toDataURL("image/png");
+                            image.className += "img-responsive center-block";
+                            $("#img-out").append(image);
+                            $('#myModal').modal('show');
+                        }
+                    });
+                } else {
+                    volumenRepello = sumaAreas * 0.015;
+                    cemento = ((volumenRepello / 3.65) * 35.7) * 1.1;
+                    arena = ((4 * volumenRepello) / 3.65) * 1.1;
+                    agua = ((0.75 * volumenRepello) / 3.65) * 1000 * 1.1;
+                    var tabla = "<tr><td>Sacos de Cemento</td><td>" + Math.ceil(cemento) + "</td></tr><tr><td>Yardas Cubicas de Arena</td><td>" + Math.ceil(arena) + "</td></tr><tr><td>Litros de Agua</td><td>" + Math.ceil(agua) + "</td></tr>";
+                    //Creacion del dom que sera convertido en canvas y luego en imagen
+                    $("#tabla-panel").removeClass("hidden");
+                    $("#tabla-container").empty();
+                    $("#tabla-container").append(tabla);
+                    html2canvas($("#tabla-panel"), {
+                        onrendered: function (canvas) {
+                            $("#tabla-panel").addClass("hidden");
+                            $("#img-out").empty();
+                            // Converts canvas to an image
+                            var image = new Image();
+                            image.src = canvas.toDataURL("image/png");
+                            image.className += "img-responsive center-block";
+                            $("#img-out").append(image);
+                            $('#myModal').modal('show');
+                        }
+                    });
+                }
             }
         });
     </script>
