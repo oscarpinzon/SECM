@@ -61,7 +61,7 @@
                                         <div class="form-group">
                                             <label class="control-label col-md-4 col-md-offset-2" for="longitud">Longitud</label>
                                             <div class="col-md-4 input-group col-xs-10 col-xs-offset-1">
-                                                <input type="number" class="form-control" id="longitud" pattern="[0-9]*" inputmode="numeric">
+                                                <input type="number" class="form-control" id="longitud" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" required>
                                                 <span class="input-group-addon">m</span>
                                             </div>
                                         </div>
@@ -87,37 +87,51 @@
                                             <div class="form-group">
                                                 <label class="control-label col-md-4 col-md-offset-2" for="largoEspesor">Largo</label>
                                                 <div class="col-md-4 input-group col-xs-10 col-xs-offset-1">
-                                                    <input type="number" class="form-control" id="largoEspesor" pattern="[0-9]*" inputmode="numeric">
+                                                    <input type="number" class="form-control" id="largoEspesor" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" required>
                                                     <span class="input-group-addon">m</span>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label col-md-4 col-md-offset-2" for="anchoEspesor">Ancho</label>
                                                 <div class="col-md-4 input-group col-xs-10 col-xs-offset-1">
-                                                    <input type="number" class="form-control" id="anchoEspesor" pattern="[0-9]*" inputmode="numeric">
+                                                    <input type="number" class="form-control" id="anchoEspesor" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" required>
                                                     <span class="input-group-addon">m</span>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label col-md-4 col-md-offset-2" for="profundidadEspesor">Profundidad</label>
                                                 <div class="col-md-4 input-group col-xs-10 col-xs-offset-1">
-                                                    <input type="number" class="form-control" id="profundidadEspesor" pattern="[0-9]*" inputmode="numeric">
+                                                    <input type="number" class="form-control" id="profundidadEspesor" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" required>
                                                     <span class="input-group-addon">m</span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div id="bloqueSelected">
-
                                             <div class="form-group">
                                                 <label class="control-label col-md-6" for="alturaZanja">Altura de la Zanja</label>
                                                 <div class="input-group col-md-4 col-xs-10 col-xs-offset-1">
-                                                    <input type="number" class="form-control" id="alturaZanja" pattern="[0-9]*" inputmode="numeric">
+                                                    <input type="number" class="form-control" id="alturaZanja" pattern="[0-9]*" step="0.1" min="0.1" inputmode="numeric">
                                                     <span class="input-group-addon">m</span>
                                                 </div>
                                             </div>
                                         </div>
-                                        <button class="btn btn-primary center-block">Estimar</button>
+                                        <button class="btn btn-primary center-block" id="estimar">Estimar</button>
                                     </form>
+                                </div>
+                            </div>
+                            <!-- Result Panel -->
+                            <div class="panel panel-default hidden" id="tabla-panel">
+                                <div class="panel-body">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Materiales</th>
+                                                <th>Cantidad</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tabla-container">
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -132,6 +146,26 @@
                         <p>Creado por Oscar Pinzón y Ricardo Yi</p>
                     </div>
                 </div>
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">Resultados</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="extra-bottom-margin" id="img-out"></div>
+                                <div class="alert alert-info" role="alert" id="guardarHelp">
+                                    <span class="glyphicon glyphicon-download"></span>
+                                    Puedes salvar la tabla como una imagen
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -143,19 +177,75 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
     <script src="../Js/html2canvas.js"></script>
     <script>
-        $(document).ready(function () {
-            $("#bloqueSelected").hide();
-            $("input[name=tipoCimientoRadio]").on("change", function () {
-                var test = $(this).val();
-                if (test == "corrida") {
-                    $("#bloqueSelected").hide();
-                    $("#corridaSelected").slideDown();
+        // Manejo de la logica del tipo de corrida seleccionada
+        $("#bloqueSelected").hide();
+        $("input[name=tipoCimientoRadio]").on("change", function () {
+            var test = $(this).val();
+            if (test == "corrida") {
+                $("#bloqueSelected").hide();
+                $("#corridaSelected").slideDown();
+                $("#largoEspesor").prop('required', true);
+                $("#anchoEspesor").prop('required', true);
+                $("#profundidadEspesor").prop('required', true);
+                $("#alturaZanja").prop('required', false);
+            }
+            else {
+                $("#corridaSelected").hide();
+                $("#bloqueSelected").slideDown();
+                $("#largoEspesor").prop('required', false);
+                $("#anchoEspesor").prop('required', false);
+                $("#profundidadEspesor").prop('required', false);
+                $("#alturaZanja").prop('required', true);
+            }
+        });
+        $("#estimar").click(function () {
+            if ($('#formulario').validator('validate').has('.has-error').length) {
+                console.log("formulario invalido");
+            }
+            else {
+                if ($('input[name=tipoCimientoRadio]:checked', '#formulario').val() === "corrida") {
+                    // Inicializacion de variables
+                    var alto = 0;
+                    var ancho = 0;
+                    var largo = 0;
+                    var volumen = 0;
+                    var cemento = 0;
+                    var arena = 0;
+                    var grava = 0;
+                    var agua = 0;
+                    // Asignacion
+                    alto = $("#profundidadEspesor").val();
+                    ancho = $("#anchoEspesor").val();
+                    largo = $("#largoEspesor").val();
+                    // Calculos
+                    volumen = alto * ancho * largo;
+                    cemento = (volumen / 4.02) * 35.7 * 1.1;
+                    arena = ((volumen * 2) / 4.02) * 1.1;
+                    grava = ((volumen * 2.5) / 4.02) * 1.1;
+                    agua = ((volumen * 0.82) / 4.02) * 1000 * 1.1;
+                    // Despliegue de resultados
+                    var tabla = "<tr><td>Sacos de Cemento</td><td>" + Math.ceil(cemento) + "</td></tr><tr><td>Yardas de Arena</td><td>" + Math.ceil(arena) + "</td></tr><tr><td>Litros de Agua</td><td>" + Math.ceil(agua) + "</td></tr><tr><td>Yardas de Grava</td><td>" + Math.ceil(grava) + "</td></tr>";
+                    //Creacion del dom que sera convertido en canvas y luego en imagen
+                    $("#tabla-panel").removeClass("hidden");
+                    $("#tabla-container").empty();
+                    $("#tabla-container").append(tabla);
+                    html2canvas($("#tabla-panel"), {
+                        onrendered: function (canvas) {
+                            $("#tabla-panel").addClass("hidden");
+                            $("#img-out").empty();
+                            // Convierte el canvas en una imagen
+                            var image = new Image();
+                            image.src = canvas.toDataURL("image/png");
+                            image.className += "img-responsive center-block";
+                            $("#img-out").append(image);
+                            $('#myModal').modal('show');
+                        }
+                    });
                 }
                 else {
-                    $("#corridaSelected").hide();
-                    $("#bloqueSelected").slideDown();
+                    console.log("Coming Soon");
                 }
-            });
+            }
         });
     </script>
 </body>

@@ -249,18 +249,6 @@
                     var yardasArena = ((volumenMortero * 4) / 3.65) * 1.1;
                     var litrosAgua = ((volumenMortero * 0.75) / 3.65) * 1000 * 1.1;
                     var varilla = (((longitud / 1.5) * altura) * 3.28084) / 30;
-                    /* BORRAR ANTES DE TERMINAR Console log para pruebas
-                    console.log("Longitud: " + longitud);
-                    console.log("Altura: " + altura);
-                    console.log("# Ventanas: " + cantidadVentanas);
-                    console.log("Area Ventana: " + areaVentanas);
-                    console.log("# Puertas: " + cantidadPuertas);
-                    console.log("Area Puerta: " + areaPuertas);
-                    console.log("Resultados")
-                    console.log("Bolsas de Cemento: " + bolsasCemento + " bolsas");
-                    console.log("Yardas Cubicas de Arena: " + Math.ceil(yardasArena) + " yardas");
-                    console.log("Litros de Agua: " + Math.ceil(litrosAgua) + "l");
-                    */
                     // Variable donde se almacenan los resultados para ser anexados al DOM
                     var tabla = "<tr><td>Bolsas de Cemento</td><td>" + Math.ceil(bolsasCemento) + "</td></tr><tr><td>Yardas Cubicas de Arena</td><td>" + Math.ceil(yardasArena) + "</td></tr><tr><td>Litros de Agua</td><td>" + Math.ceil(litrosAgua) + "</td></tr><tr><td>Varillas 3/8</td><td>" + Math.ceil(varilla) + "</td></tr>";
                     //Creacion del dom que sera convertido en canvas y luego en imagen

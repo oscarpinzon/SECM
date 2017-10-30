@@ -9,15 +9,11 @@
     <!--Aqui se debe colocar el logo que Ricardo creara 
   <link rel="icon" href="../../favicon.ico">
   -->
-
     <title>SECM</title>
-
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="../Css/bootstrap.min.css">
-
     <!-- Custom styles for this template -->
     <link href="../Css/styles.css" rel="stylesheet">
-
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -26,13 +22,9 @@
 </head>
 
 <body>
-
     <div class="site-wrapper">
-
         <div class="site-wrapper-inner">
-
             <div class="cover-container">
-
                 <div class="masthead clearfix">
                     <div class="inner">
                         <h3 class="masthead-brand">SECM</h3>
@@ -51,67 +43,121 @@
                         </nav>
                     </div>
                 </div>
-
                 <div class="inner cover">
                     <h1 class="cover-heading">Revestimiento</h1>
                 </div>
-
                 <div class="container-fluid">
-
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tristique tempor neque, eget elementum
-                    erat vulputate at. Nam eget elementum tortor.</p>
-                
+                        erat vulputate at. Nam eget elementum tortor.</p>
                     <div class="row">
                         <div class="col-md-6 col-md-offset-3">
                             <div class="panel panel-default">
-
                                 <div class="panel-body">
-
-                                    <form class="form">
-
+                                    <form class="form" data-toggle="validator" role="form" onsubmit="return false" id="formulario">
                                         <div class="form-group">
                                             <label class="control-label" for="longitudTotal">Suma de las Areas de las Paredes</label>
                                             <div class="input-group">
-                                                <input type="number" class="form-control" id="longitudTotal" pattern="[0-9]*" inputmode="numeric">
-                                                <span class="input-group-addon">m<sup>2</sup></span>
+                                                <input type="number" class="form-control" id="areaTotal" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" required>
+                                                <span class="input-group-addon">m
+                                                    <sup>2</sup>
+                                                </span>
                                             </div>
                                         </div>
-
-                                        <button class="btn btn-primary center-block">Estimar</button>
-
+                                        <button class="btn btn-primary center-block" id="estimar">Estimar</button>
                                     </form>
-
                                 </div>
-
                             </div>
-
+                            <!-- Results Panel -->
+                            <div class="panel panel-default hidden" id="tabla-panel">
+                                <div class="panel-body">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Materiales</th>
+                                                <th>Cantidad</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tabla-container">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    
                 </div>
-
                 <a href="estimacionPartes.html" class="btn btn-default btn-lg">
                     <span class="glyphicon glyphicon-arrow-left" aria-label="regresar">
                     </span>
                 </a>
-
                 <div class="mastfoot">
                     <div class="inner">
                         <p>Creado por Oscar Pinzón y Ricardo Yi</p>
                     </div>
                 </div>
-
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">Resultados</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="extra-bottom-margin" id="img-out"></div>
+                                <div class="alert alert-info" role="alert" id="guardarHelp">
+                                    <span class="glyphicon glyphicon-download"></span>
+                                    Puedes salvar la tabla como una imagen
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
         </div>
-
     </div>
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="../Js/jquery-3.2.1.min.js"></script>
     <script src="../Js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
+    <script src="../Js/html2canvas.js"></script>
+    <script>
+        $("#estimar").click(function () {
+            if ($('#formulario').validator('validate').has('.has-error').length) {
+                console.log("formulario invalido");
+            }
+            else {
+                // Inicializacion de Variables
+                var sumaAreas = 0;
+                var pintura = 0;
+                // Asignacion
+                sumaAreas = $("#areaTotal").val();
+                // Calculos
+                pintura = ((sumaAreas / 10) * 2) / 3.7854118;
+                // Despliegue de resultados
+                var tabla = "<tr><td>Galón de Pintura</td><td>" + Math.ceil(pintura) + "</td></tr>"
+                //Creacion del dom que sera convertido en canvas y luego en imagen
+                $("#tabla-panel").removeClass("hidden");
+                $("#tabla-container").empty();
+                $("#tabla-container").append(tabla);
+                html2canvas($("#tabla-panel"), {
+                    onrendered: function (canvas) {
+                        $("#tabla-panel").addClass("hidden");
+                        $("#img-out").empty();
+                        // Convierte el canvas en una imagen
+                        var image = new Image();
+                        image.src = canvas.toDataURL("image/png");
+                        image.className += "img-responsive center-block";
+                        $("#img-out").append(image);
+                        $('#myModal').modal('show');
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
