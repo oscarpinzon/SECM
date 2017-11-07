@@ -25,7 +25,7 @@
     <div class="site-wrapper">
         <div class="site-wrapper-inner">
             <div class="cover-container">
-                <div class="masthead clearfix">
+                <div class="masthead clearfix" id="header">
                     <div class="inner">
                         <h3 class="masthead-brand">SECM</h3>
                         <nav>
@@ -78,13 +78,13 @@
                                         <p class="text-center">
                                             <strong>Aguas</strong>
                                         </p>
-                                        <div class="form-group">
-                                            <div class="radio">
+                                        <div class="form-group text-center">
+                                            <div class="radio-inline">
                                                 <label class="control-label">
                                                     <input type="radio" name="aguasRadio" id="aguas1Radio" value="1" checked> 1
                                                 </label>
                                             </div>
-                                            <div class="radio">
+                                            <div class="radio-inline">
                                                 <label class="control-label">
                                                     <input type="radio" name="aguasRadio" id="aguas2Radio" value="2"> 2
                                                 </label>
@@ -93,15 +93,15 @@
                                         <p class="text-center">
                                             <strong>Tipo de Canal</strong>
                                         </p>
-                                        <div class="form-group">
-                                            <div class="radio">
+                                        <div class="form-group text-center">
+                                            <div class="radio-inline">
                                                 <label class="control-label">
-                                                    <input type="radio" name="tipoCanalRadio" id="onduladosRadio" value="Ondulados" checked> Ondulados
+                                                    <input type="radio" name="tipoCanalRadio" id="onduladosRadio" value="Ondulado" checked> Ondulado
                                                 </label>
                                             </div>
-                                            <div class="radio">
+                                            <div class="radio-inline">
                                                 <label class="control-label">
-                                                    <input type="radio" name="tipoCanalRadio" id="anchasRadio" value="Anchas"> Anchas
+                                                    <input type="radio" name="tipoCanalRadio" id="anchasRadio" value="Ancho"> Ancho
                                                 </label>
                                             </div>
                                         </div>
@@ -112,7 +112,7 @@
                             <!-- Results Panel -->
                             <div class="panel panel-default hidden" id="tabla-panel">
                                 <div class="panel-body">
-                                    <table class="table">
+                                    <table class="table text-center">
                                         <thead>
                                             <tr>
                                                 <th>Materiales</th>
@@ -131,7 +131,7 @@
                     <span class="glyphicon glyphicon-arrow-left" aria-label="regresar">
                     </span>
                 </a>
-                <div class="mastfoot">
+                <div class="mastfoot" id="footer">
                     <div class="inner">
                         <p>Creado por Oscar Pinzón y Ricardo Yi</p>
                     </div>
@@ -167,6 +167,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
     <script src="../Js/html2canvas.js"></script>
     <script>
+        // Cambio de la propiedad position debido al tamaño del formulario
+        $("#footer").css("position","static");
+        $("#header").css("position","static");
+        //Logica que ocurre al hacer click en estimar
         $("#estimar").click(function () {
             if ($('#formulario').validator('validate').has('.has-error').length) {
                 console.log("formulario invalido");
@@ -192,9 +196,46 @@
                     hojasZinc = ((ancho * 39.3701) / 42) * 1.1;
                     longitudZinc = (pendiente * 3.28084) + 2;
                     caballetera = (ancho * 3.28084) + 2;
-                    console.log("1");
+                    var tabla = "<tr><td>Hojas de Zinc</td><td>" + Math.ceil(hojasZinc) + " laminas de Zinc de 42' x 26' x " + Math.ceil(longitudZinc) + "'<br>Diseño de Canal: " + $('input[name=tipoCanalRadio]:checked').val() + "</td></tr><tr><td>Pies de Carriola</td><td>" + Math.ceil(carriola) + "</td></tr><tr><td>Pies de Caballete</td><td>" + Math.ceil(caballetera) + "</td></tr>";
+                    //Creacion del dom que sera convertido en canvas y luego en imagen
+                    $("#tabla-panel").removeClass("hidden");
+                    $("#tabla-container").empty();
+                    $("#tabla-container").append(tabla);
+                    html2canvas($("#tabla-panel"), {
+                        onrendered: function (canvas) {
+                            $("#tabla-panel").addClass("hidden");
+                            $("#img-out").empty();
+                            // Converts canvas to an image
+                            var image = new Image();
+                            image.src = canvas.toDataURL("image/png");
+                            image.className += "img-responsive center-block";
+                            $("#img-out").append(image);
+                            $('#myModal').modal('show');
+                        }
+                    });
                 } else {
-                    console.log("2");
+                    pendiente = Math.sqrt(Math.pow(alto, 2) + Math.pow(largo / 2, 2));
+                    carriola = ((pendiente * ancho * 3.28084) + 6) * 2;
+                    hojasZinc = ((ancho * 39.3701) / 42) * 1.1 * 2;
+                    longitudZinc = (pendiente * 3.28084) + 2;
+                    caballetera = (ancho * 3.28084) + 2;
+                    var tabla = "<tr><td>Hojas de Zinc</td><td>" + Math.ceil(hojasZinc) + " laminas de Zinc de 42' x 26' x " + Math.ceil(longitudZinc) + "'<br>Diseño de Canal: " + $('input[name=tipoCanalRadio]:checked').val() + "</td></tr><tr><td>Pies de Carriola</td><td>" + Math.ceil(carriola) + "</td></tr><tr><td>Pies de Caballete</td><td>" + Math.ceil(caballetera) + "</td></tr>";
+                    //Creacion del dom que sera convertido en canvas y luego en imagen
+                    $("#tabla-panel").removeClass("hidden");
+                    $("#tabla-container").empty();
+                    $("#tabla-container").append(tabla);
+                    html2canvas($("#tabla-panel"), {
+                        onrendered: function (canvas) {
+                            $("#tabla-panel").addClass("hidden");
+                            $("#img-out").empty();
+                            // Converts canvas to an image
+                            var image = new Image();
+                            image.src = canvas.toDataURL("image/png");
+                            image.className += "img-responsive center-block";
+                            $("#img-out").append(image);
+                            $('#myModal').modal('show');
+                        }
+                    });
                 }
             }
         });
