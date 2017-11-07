@@ -48,38 +48,45 @@
                 </div>
                 <div class="container-fluid">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tristique tempor neque, eget elementum
-                    erat vulputate at. Nam eget elementum tortor.</p>
+                        erat vulputate at. Nam eget elementum tortor.</p>
                     <div class="row">
                         <div class="col-md-6 col-md-offset-3">
                             <div class="panel panel-default">
                                 <div class="panel-body">
-                                    <form class="form-horizontal">
+                                    <form class="form" data-toggle="validator" role="form" onsubmit="return false" id="formulario">
                                         <div class="form-group">
-                                            <label class="control-label col-md-6" for="largo">Largo del Techo</label>
-                                            <div class="col-md-4 input-group col-xs-10 col-xs-offset-1">
-                                                <input type="number" class="form-control" id="largo" pattern="[0-9]*" inputmode="numeric">
+                                            <label class="control-label" for="largo">Altura del Techo</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="alto" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" required>
                                                 <span class="input-group-addon">m</span>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label col-md-6" for="ancho">Ancho del Techo</label>
-                                            <div class="col-md-4 input-group col-xs-10 col-xs-offset-1">
-                                                <input type="number" class="form-control" id="ancho" pattern="[0-9]*" inputmode="numeric">
+                                            <label class="control-label" for="largo">Largo del Techo</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="largo" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" required>
+                                                <span class="input-group-addon">m</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label" for="ancho">Ancho del Techo</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="ancho" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" required>
                                                 <span class="input-group-addon">m</span>
                                             </div>
                                         </div>
                                         <p class="text-center">
-                                            <strong>Pendiente</strong>
+                                            <strong>Aguas</strong>
                                         </p>
                                         <div class="form-group">
-                                            <div class="radio col-xs-2 col-xs-offset-4">
+                                            <div class="radio">
                                                 <label class="control-label">
-                                                    <input type="radio" name="pendienteRadio" id="pendiente1Radio" value="1" checked> 1
+                                                    <input type="radio" name="aguasRadio" id="aguas1Radio" value="1" checked> 1
                                                 </label>
                                             </div>
-                                            <div class="radio col-xs-2">
+                                            <div class="radio">
                                                 <label class="control-label">
-                                                    <input type="radio" name="pendienteRadio" id="pendiente2Radio" value="2"> 2
+                                                    <input type="radio" name="aguasRadio" id="aguas2Radio" value="2"> 2
                                                 </label>
                                             </div>
                                         </div>
@@ -87,19 +94,34 @@
                                             <strong>Tipo de Canal</strong>
                                         </p>
                                         <div class="form-group">
-                                            <div class="radio col-xs-4 col-xs-offset-2">
+                                            <div class="radio">
                                                 <label class="control-label">
                                                     <input type="radio" name="tipoCanalRadio" id="onduladosRadio" value="Ondulados" checked> Ondulados
                                                 </label>
                                             </div>
-                                            <div class="radio col-xs-4">
+                                            <div class="radio">
                                                 <label class="control-label">
-                                                    <input type="radio" name="tipoHojasRadio" id="anchasRadio" value="Anchas"> Anchas
+                                                    <input type="radio" name="tipoCanalRadio" id="anchasRadio" value="Anchas"> Anchas
                                                 </label>
                                             </div>
                                         </div>
-                                        <button class="btn btn-primary center-block">Estimar</button>
+                                        <button class="btn btn-primary center-block" id="estimar">Estimar</button>
                                     </form>
+                                </div>
+                            </div>
+                            <!-- Results Panel -->
+                            <div class="panel panel-default hidden" id="tabla-panel">
+                                <div class="panel-body">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Materiales</th>
+                                                <th>Cantidad</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tabla-container">
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -114,6 +136,26 @@
                         <p>Creado por Oscar Pinzón y Ricardo Yi</p>
                     </div>
                 </div>
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">Resultados</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="extra-bottom-margin" id="img-out"></div>
+                                <div class="alert alert-info" role="alert" id="guardarHelp">
+                                    <span class="glyphicon glyphicon-download"></span>
+                                    Puedes salvar la tabla como una imagen
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -122,6 +164,41 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="../Js/jquery-3.2.1.min.js"></script>
     <script src="../Js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
+    <script src="../Js/html2canvas.js"></script>
+    <script>
+        $("#estimar").click(function () {
+            if ($('#formulario').validator('validate').has('.has-error').length) {
+                console.log("formulario invalido");
+            }
+            else {
+                //Inicializacion de las variables
+                var alto = 0;
+                var largo = 0;
+                var ancho = 0;
+                var pendiente = 0;
+                var carriola = 0;
+                var hojasZinc = 0;
+                var longitudZinc = 0;
+                var caballetera = 0;
+                // Asignacion de los valores
+                alto = $("#alto").val();
+                largo = $("#largo").val();
+                ancho = $("#ancho").val();
+                // Calculo de las variables
+                if ($('input[name=aguasRadio]:checked', '#formulario').val() === "1") {
+                    pendiente = Math.sqrt(Math.pow(alto, 2) + Math.pow(largo / 2, 2));
+                    carriola = (pendiente * ancho * 3.28084) + 6;
+                    hojasZinc = ((ancho * 39.3701) / 42) * 1.1;
+                    longitudZinc = (pendiente * 3.28084) + 2;
+                    caballetera = (ancho * 3.28084) + 2;
+                    console.log("1");
+                } else {
+                    console.log("2");
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>
