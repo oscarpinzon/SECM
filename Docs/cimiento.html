@@ -97,7 +97,8 @@
                                             <div class="form-group">
                                                 <label class="control-label" for="profundidadEspesor">Profundidad</label>
                                                 <div class="input-group">
-                                                    <input type="number" class="form-control" id="profundidadEspesor" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" required>
+                                                    <input type="number" class="form-control" id="profundidadEspesor" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1"
+                                                        required>
                                                     <span class="input-group-addon">m</span>
                                                 </div>
                                             </div>
@@ -174,8 +175,8 @@
     <script src="../Js/html2canvas.js"></script>
     <script>
         // Cambio de la propiedad position debido al tamaño del formulario
-        $("#footer").css("position","static");
-        $("#header").css("position","static");
+        $("#footer").css("position", "static");
+        $("#header").css("position", "static");
         // Manejo de la logica del tipo de corrida seleccionada
         $("#bloqueSelected").hide();
         $("input[name=tipoCimientoRadio]").on("change", function () {
