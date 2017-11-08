@@ -25,7 +25,7 @@
     <div class="site-wrapper">
         <div class="site-wrapper-inner">
             <div class="cover-container">
-                <div class="masthead clearfix">
+                <div class="masthead clearfix" id="header">
                     <div class="inner">
                         <h3 class="masthead-brand">SECM</h3>
                         <nav>
@@ -53,10 +53,10 @@
                         <div class="col-md-6 col-md-offset-3">
                             <div class="panel panel-default">
                                 <div class="panel-body">
-                                    <form class="form-horizontal" data-toggle="validator" role="form" onsubmit="return false" id="formulario">
+                                    <form class="form" data-toggle="validator" role="form" onsubmit="return false" id="formulario">
                                         <div class="form-group">
-                                            <label class="control-label col-md-4 col-md-offset-2" for="longitud">Longitud</label>
-                                            <div class="col-md-4 input-group col-xs-10 col-xs-offset-1">
+                                            <label class="control-label" for="longitud">Longitud</label>
+                                            <div class="input-group">
                                                 <input type="number" class="form-control" id="longitud" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" required>
                                                 <span class="input-group-addon">m</span>
                                             </div>
@@ -64,13 +64,13 @@
                                         <p class="text-center">
                                             <strong>Tipo de Cimiento</strong>
                                         </p>
-                                        <div class="form-group">
-                                            <div class="radio col-xs-4 col-xs-offset-2">
+                                        <div class="form-group text-center">
+                                            <div class="radio-inline">
                                                 <label class="control-label">
                                                     <input type="radio" name="tipoCimientoRadio" id="corridaRadio" value="corrida" checked> Corrida
                                                 </label>
                                             </div>
-                                            <div class="radio col-xs-4">
+                                            <div class="radio-inline">
                                                 <label class="control-label">
                                                     <input type="radio" name="tipoCimientoRadio" id="bloqueRadio" value="bloque"> Bloque
                                                 </label>
@@ -81,22 +81,22 @@
                                                 <strong>Espesor de la Corrida</strong>
                                             </p>
                                             <div class="form-group">
-                                                <label class="control-label col-md-4 col-md-offset-2" for="largoEspesor">Largo</label>
-                                                <div class="col-md-4 input-group col-xs-10 col-xs-offset-1">
+                                                <label class="control-label" for="largoEspesor">Largo</label>
+                                                <div class="input-group">
                                                     <input type="number" class="form-control" id="largoEspesor" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" required>
                                                     <span class="input-group-addon">m</span>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-4 col-md-offset-2" for="anchoEspesor">Ancho</label>
-                                                <div class="col-md-4 input-group col-xs-10 col-xs-offset-1">
+                                                <label class="control-label" for="anchoEspesor">Ancho</label>
+                                                <div class="input-group">
                                                     <input type="number" class="form-control" id="anchoEspesor" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" required>
                                                     <span class="input-group-addon">m</span>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-md-4 col-md-offset-2" for="profundidadEspesor">Profundidad</label>
-                                                <div class="col-md-4 input-group col-xs-10 col-xs-offset-1">
+                                                <label class="control-label" for="profundidadEspesor">Profundidad</label>
+                                                <div class="input-group">
                                                     <input type="number" class="form-control" id="profundidadEspesor" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" required>
                                                     <span class="input-group-addon">m</span>
                                                 </div>
@@ -104,8 +104,8 @@
                                         </div>
                                         <div id="bloqueSelected">
                                             <div class="form-group">
-                                                <label class="control-label col-md-6" for="alturaZanja">Altura de la Zanja</label>
-                                                <div class="input-group col-md-4 col-xs-10 col-xs-offset-1">
+                                                <label class="control-label" for="alturaZanja">Altura de la Zanja</label>
+                                                <div class="input-group">
                                                     <input type="number" class="form-control" id="alturaZanja" pattern="[0-9]*" step="0.1" min="0.1" inputmode="numeric">
                                                     <span class="input-group-addon">m</span>
                                                 </div>
@@ -137,8 +137,8 @@
                     <span class="glyphicon glyphicon-arrow-left" aria-label="regresar">
                     </span>
                 </a>
-                <div class="mastfoot">
-                    <div class="">
+                <div class="mastfoot" id="footer">
+                    <div class="inner">
                         <p>Creado por Oscar Pinzón y Ricardo Yi</p>
                     </div>
                 </div>
@@ -173,6 +173,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
     <script src="../Js/html2canvas.js"></script>
     <script>
+        // Cambio de la propiedad position debido al tamaño del formulario
+        $("#footer").css("position","static");
+        $("#header").css("position","static");
         // Manejo de la logica del tipo de corrida seleccionada
         $("#bloqueSelected").hide();
         $("input[name=tipoCimientoRadio]").on("change", function () {
@@ -209,7 +212,7 @@
                     var arena = 0;
                     var grava = 0;
                     var agua = 0;
-                    // Asignacion
+                    // Asignacion de variables
                     alto = $("#profundidadEspesor").val();
                     ancho = $("#anchoEspesor").val();
                     largo = $("#largoEspesor").val();
