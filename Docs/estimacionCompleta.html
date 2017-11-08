@@ -186,10 +186,33 @@
                                                 <label class="control-label" for="areaPuerta">Area de las Puertas</label>
                                                 <div class="input-group">
                                                     <input type="number" class="form-control" id="areaPuerta" pattern="[0-9]*" step="0.1" min="0.1" inputmode="numeric" disabled>
-                                                    <span class="input-group-addon">m
-                                                        <sup>2</sup>
+                                                    <span class="input-group-addon">m<sup>2</sup>
                                                     </span>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <!-- Contrapiso -->
+                                        <h1 class="cover-heading text-center">Contrapiso</h1>
+                                        <p class="lead text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tristique tempor
+                                            neque, eget elementum erat vulputate at. Nam eget elementum tortor.</p>
+                                        <div class="form-group">
+                                            <label class="control-label" for="area">Area</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="area" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" inputmode="numeric"
+                                                    required>
+                                                <span class="input-group-addon">m
+                                                    <sup>2</sup>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label" for="espesor">Espesor
+                                            </label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="espesor" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" inputmode="numeric"
+                                                    required>
+                                                <span class="input-group-addon">cm</span>
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary center-block" id="estimar">Estimar</button>
@@ -235,6 +258,10 @@
                                     Las ventanas o paredes son muy grandes
                                 </div>
                                 <div class="extra-bottom-margin" id="img-out"></div>
+                                <div class="alert alert-info" role="alert" id="porcionHelp">
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                    Se utiliza porcion de 1:2.6:3.51:7 para el Contrapiso
+                                </div>
                                 <div class="alert alert-info" role="alert" id="guardarHelp">
                                     <span class="glyphicon glyphicon-download"></span>
                                     Puedes salvar la tabla como una imagen
@@ -308,7 +335,7 @@
                 console.log("formulario invalido");
             }
             else {
-                // Inicializacion de variables Cimiento
+                // Inicializacion de variables CIMIENTO
                 var alto = 0;
                 var ancho = 0;
                 var largo = 0;
@@ -317,7 +344,7 @@
                 var arena = 0;
                 var grava = 0;
                 var agua = 0;
-                //Inicializacion de las variables Pared
+                //Inicializacion de las variables PARED
                 var longitud = 0;
                 var altura = 0;
                 var cantidadVentanas = 0;
@@ -327,17 +354,24 @@
                 var varilla = 0;
                 var bloquesde4 = 0;
                 var volumenMortero = 0;
-                // Asignacion de variables Cimiento
+                // Inicializacion de las variables CONTRAPISO
+                var area = 0;
+                var espesor = 0;
+                var areaTotal = 0;
+                // Asignacion de variables CIMIENTO
                 alto = $("#profundidadEspesor").val();
                 ancho = $("#anchoEspesor").val();
                 largo = $("#largoEspesor").val();
-                // Asignacion de los valores en los campos Pared
+                // Asignacion de los valores en los campos PARED
                 longitud = $("#longitudTotal").val();
                 altura = $("#altura").val();
                 cantidadVentanas = $("#cantidadVentanas").val();
                 areaVentanas = $("#areaVentana").val();
                 cantidadPuertas = $("#cantidadPuertas").val();
                 areaPuertas = $("#areaPuerta").val();
+                // Asignacion de los valores CONTRAPISO
+                area = $("#area").val();
+                espesor = $("#espesor").val();
                 // Calculos de Cimiento
                 if ($('input[name=tipoCimientoRadio]:checked', '#formulario').val() === "corrida") {
                     volumen = alto * ancho * largo;
@@ -354,6 +388,7 @@
                 // Si el area resultante es negativa mostrar el error, sino continua con los calculos
                 if (areaTotalPared < 0) {
                     $("#img-out").empty();
+                    $('#porcionHelp').addClass('hidden');
                     $('#guardarHelp').addClass('hidden');
                     $('#areaWarning').removeClass('hidden');
                     $('#myModal').modal('show');
@@ -366,6 +401,12 @@
                     arena += ((volumenMortero * 4) / 3.65) * 1.1;
                     agua += ((volumenMortero * 0.75) / 3.65) * 1000 * 1.1;
                     varilla = (((longitud / 1.5) * altura) * 3.28084) / 30;
+                    // Calculos de Contrapiso
+                    areaTotal = area * espesor;
+                    cemento += (areaTotal / 5.216) * 35.7 * 1.1;
+                    arena += ((2.6 * areaTotal) / 5.216) * 1.1;
+                    grava += ((3.51 * areaTotal) / 5.216) * 1.1;
+                    agua += ((1.05 * areaTotal) / 5.216) * 1.1 * 1000;
                     // Despliegue de resultados
                     var tabla = "<tr><td>Sacos de Cemento</td><td>" + Math.ceil(cemento) + "</td></tr><tr><td>Yardas de Arena</td><td>" + Math.ceil(arena) + "</td></tr><tr><td>Litros de Agua</td><td>" + Math.ceil(agua) + "</td></tr><tr><td>Yardas de Grava</td><td>" + Math.ceil(grava) + "</td></tr><tr><td>Varillas 3/8</td><td>" + Math.ceil(varilla) + "</td></tr>";
                     //Creacion del dom que sera convertido en canvas y luego en imagen
