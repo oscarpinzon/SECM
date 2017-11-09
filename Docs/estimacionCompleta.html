@@ -243,6 +243,8 @@
                                             <br>
                                             <small>Topping</small>
                                         </h1>
+                                        <p class="lead text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tristique tempor
+                                            neque, eget elementum erat vulputate at. Nam eget elementum tortor.</p>
                                         <div class="form-group">
                                             <label class="control-label" for="areaTotalTopping">
                                                 Area
@@ -262,6 +264,33 @@
                                                 <input type="number" class="form-control" id="espesorTopping" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" required>
                                                 <span class="input-group-addon">cm</span>
                                             </div>
+                                        </div>
+                                        <hr>
+                                        <!-- Repello -->
+                                        <h1 class="cover-heading text-center">Repello</h1>
+                                        <p class="lead text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tristique tempor
+                                            neque, eget elementum erat vulputate at. Nam eget elementum tortor.</p>
+                                        <div class="form-group">
+                                            <label class="control-label" for="largo">Suma de las Areas de las Paredes</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="sumaAreasRepello" pattern="[0-9]*" step="0.1" min="0.1" inputmode="numeric"
+                                                    required>
+                                                <span class="input-group-addon">
+                                                    m
+                                                    <sup>2</sup>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <p class="text-center">
+                                            <strong>Tipo de Repello</strong>
+                                        </p>
+                                        <div class="form-group text-center">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="tipoRepelloRadio" id="gruesoRadio" value="grueso" checked> Grueso
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="tipoRepelloRadio" id="delgadoRadio" value="delgado"> Delgado
+                                            </label>
                                         </div>
                                         <button type="submit" class="btn btn-primary center-block" id="estimar">Estimar</button>
                                     </form>
@@ -425,9 +454,9 @@
                 var areaTopping = 0;
                 var espesorTopping = 0;
                 var areaTotalTopping = 0;
-                var cemento = 0;
-                var arena = 0;
-                var agua = 0;
+                // REPELLO
+                var sumaAreasRepello = 0;
+                var volumenRepello = 0;
 
                 // Asignacion de variables 
                 // CIMIENTO
@@ -449,6 +478,8 @@
                 // TOPPING
                 areaTopping = $("#areaTotalTopping").val();
                 espesorTopping = $("#espesorTopping").val();
+                // REPELLO
+                sumaAreasRepello = $("#sumaAreasRepello").val();
 
                 // Calculos
                 // CIMIENTO
@@ -460,6 +491,7 @@
                     agua = ((volumen * 0.82) / 4.02) * 1000 * 1.1;
                 }
                 else {
+                    // FALTA
                     console.log("Falta");
                 }
                 // PARED
@@ -467,8 +499,7 @@
                 // Si el area resultante es negativa mostrar el error, sino continua con los calculos
                 if (areaTotalPared < 0) {
                     $("#img-out").empty();
-                    $('#porcionHelp').addClass('hidden');
-                    $('#guardarHelp').addClass('hidden');
+                    $('.alert-info').addClass('hidden');
                     $('#areaWarning').removeClass('hidden');
                     $('#myModal').modal('show');
                 } else {
@@ -495,6 +526,19 @@
                     cemento += (areaTotalTopping / 5.3) * 35.7 * 1.1;
                     arena += ((6 * areaTotalTopping) / 5.3) * 1.1;
                     agua += ((1.2 * areaTotalTopping) / 5.3) * 1000 * 1.1;
+                    // REPELLO
+                    if ($('input[name=tipoRepelloRadio]:checked', '#formulario').val() === "grueso") {
+                        volumenRepello = sumaAreasRepello * 0.03;
+                        cemento += ((volumenRepello / 3.65) * 35.7) * 1.1;
+                        arena += ((4 * volumenRepello) / 3.65) * 1.1;
+                        agua += ((0.75 * volumenRepello) / 3.65) * 1000 * 1.1;
+                    } else {
+                        volumenRepello = sumaAreasRepello * 0.015;
+                        cemento += ((volumenRepello / 3.65) * 35.7) * 1.1;
+                        arena += ((4 * volumenRepello) / 3.65) * 1.1;
+                        agua += ((0.75 * volumenRepello) / 3.65) * 1000 * 1.1;
+                    }
+
                     // Despliegue de resultados
                     // Asignacion de resultados a variable que sera convertida en una tabla
                     var tabla = "<tr><td>Sacos de Cemento</td><td>" + Math.ceil(cemento) + "</td></tr><tr><td>Yardas de Arena</td><td>" + Math.ceil(arena) + "</td></tr><tr><td>Litros de Agua</td><td>" + Math.ceil(agua) + "</td></tr><tr><td>Yardas de Grava</td><td>" + Math.ceil(grava) + "</td></tr><tr><td>Varillas 3/8</td><td>" + Math.ceil(varilla) + "</td></tr><tr><td>Piezas de Baldosas</td><td>" + Math.ceil(unidades) + " (unitario)</td></tr><tr><td>Libras de Pegamento</td><td>" + Math.ceil(baldosa) + " (lb)</td></tr><tr><td>Libras de Lechada</td><td>" + Math.ceil(lechada) + " (lb)</td></tr>";
