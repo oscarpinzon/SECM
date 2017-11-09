@@ -237,6 +237,32 @@
                                                 </span>
                                             </div>
                                         </div>
+                                        <hr>
+                                        <!-- Topping -->
+                                        <h1 class="cover-heading text-center">Piso
+                                            <br>
+                                            <small>Topping</small>
+                                        </h1>
+                                        <div class="form-group">
+                                            <label class="control-label" for="areaTotalTopping">
+                                                Area
+                                            </label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="areaTotalTopping" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1"
+                                                    required>
+                                                <span class="input-group-addon">m
+                                                    <sup>2</sup>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label" for="espesorTopping">Espesor
+                                            </label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="espesorTopping" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" required>
+                                                <span class="input-group-addon">cm</span>
+                                            </div>
+                                        </div>
                                         <button type="submit" class="btn btn-primary center-block" id="estimar">Estimar</button>
                                     </form>
                                 </div>
@@ -287,6 +313,10 @@
                                 <div class="alert alert-info" role="alert" id="help">
                                     <span class="glyphicon glyphicon-info-sign"></span>
                                     Calculo con Ceramica de 25cm x 25cm
+                                </div>
+                                <div class="alert alert-info" role="alert" id="help">
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                    Se utiliza porcion de 1:6:6 20% agua para el Topping
                                 </div>
                                 <div class="alert alert-info" role="alert" id="help">
                                     <span class="glyphicon glyphicon-download"></span>
@@ -361,6 +391,7 @@
                 console.log("formulario invalido");
             }
             else {
+
                 // Inicializacion de variables
                 // CIMIENTO
                 var alto = 0;
@@ -390,6 +421,14 @@
                 var unidades = 0;
                 var baldosa = 0;
                 var lechada = 0;
+                // TOPPING
+                var areaTopping = 0;
+                var espesorTopping = 0;
+                var areaTotalTopping = 0;
+                var cemento = 0;
+                var arena = 0;
+                var agua = 0;
+
                 // Asignacion de variables 
                 // CIMIENTO
                 alto = $("#profundidadEspesor").val();
@@ -407,6 +446,10 @@
                 espesor = $("#espesor").val();
                 // CERAMICA
                 areaCeramica = $("#areaTotalCeramica").val();
+                // TOPPING
+                areaTopping = $("#areaTotalTopping").val();
+                espesorTopping = $("#espesorTopping").val();
+
                 // Calculos
                 // CIMIENTO
                 if ($('input[name=tipoCimientoRadio]:checked', '#formulario').val() === "corrida") {
@@ -443,10 +486,15 @@
                     arena += ((2.6 * areaTotal) / 5.216) * 1.1;
                     grava += ((3.51 * areaTotal) / 5.216) * 1.1;
                     agua += ((1.05 * areaTotal) / 5.216) * 1.1 * 1000;
-                    // Calculos
+                    // CERAMICA
                     unidades = areaCeramica * 16 * 1.03;
                     baldosa = areaCeramica * 1.03;
                     lechada = (areaCeramica * 0.5) * 1.03;
+                    // TOPPING
+                    areaTotalTopping = areaTopping * espesorTopping;
+                    cemento += (areaTotalTopping / 5.3) * 35.7 * 1.1;
+                    arena += ((6 * areaTotalTopping) / 5.3) * 1.1;
+                    agua += ((1.2 * areaTotalTopping) / 5.3) * 1000 * 1.1;
                     // Despliegue de resultados
                     // Asignacion de resultados a variable que sera convertida en una tabla
                     var tabla = "<tr><td>Sacos de Cemento</td><td>" + Math.ceil(cemento) + "</td></tr><tr><td>Yardas de Arena</td><td>" + Math.ceil(arena) + "</td></tr><tr><td>Litros de Agua</td><td>" + Math.ceil(agua) + "</td></tr><tr><td>Yardas de Grava</td><td>" + Math.ceil(grava) + "</td></tr><tr><td>Varillas 3/8</td><td>" + Math.ceil(varilla) + "</td></tr><tr><td>Piezas de Baldosas</td><td>" + Math.ceil(unidades) + " (unitario)</td></tr><tr><td>Libras de Pegamento</td><td>" + Math.ceil(baldosa) + " (lb)</td></tr><tr><td>Libras de Lechada</td><td>" + Math.ceil(lechada) + " (lb)</td></tr>";
