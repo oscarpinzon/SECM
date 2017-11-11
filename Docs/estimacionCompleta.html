@@ -292,6 +292,76 @@
                                                 <input type="radio" name="tipoRepelloRadio" id="delgadoRadio" value="delgado"> Delgado
                                             </label>
                                         </div>
+                                        <hr>
+                                        <!-- Techo -->
+                                        <h1 class="cover-heading text-center">Techo</h1>
+                                        <p class="lead text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tristique tempor
+                                            neque, eget elementum erat vulputate at. Nam eget elementum tortor.</p>
+                                        <div class="form-group">
+                                            <label class="control-label" for="altoTecho">Altura del Techo</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="altoTecho" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" required>
+                                                <span class="input-group-addon">m</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label" for="largoTecho">Largo del Techo</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="largoTecho" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" required>
+                                                <span class="input-group-addon">m</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label" for="anchoTecho">Ancho del Techo</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="anchoTecho" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" required>
+                                                <span class="input-group-addon">m</span>
+                                            </div>
+                                        </div>
+                                        <p class="text-center">
+                                            <strong>Aguas</strong>
+                                        </p>
+                                        <div class="form-group text-center">
+                                            <div class="radio-inline">
+                                                <label class="control-label">
+                                                    <input type="radio" name="aguasRadio" id="aguas1Radio" value="1" checked> 1
+                                                </label>
+                                            </div>
+                                            <div class="radio-inline">
+                                                <label class="control-label">
+                                                    <input type="radio" name="aguasRadio" id="aguas2Radio" value="2"> 2
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <p class="text-center">
+                                            <strong>Tipo de Canal</strong>
+                                        </p>
+                                        <div class="form-group text-center">
+                                            <div class="radio-inline">
+                                                <label class="control-label">
+                                                    <input type="radio" name="tipoCanalRadio" id="onduladosRadio" value="Ondulado" checked> Ondulado
+                                                </label>
+                                            </div>
+                                            <div class="radio-inline">
+                                                <label class="control-label">
+                                                    <input type="radio" name="tipoCanalRadio" id="anchasRadio" value="Ancho"> Ancho
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <!-- Revestimiento -->
+                                        <h1 class="cover-heading text-center">Revestimiento</h1>
+                                        <p class="lead text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tristique tempor
+                                            neque, eget elementum erat vulputate at. Nam eget elementum tortor.</p>
+                                        <div class="form-group">
+                                            <label class="control-label" for="areaTotalRevestimiento">Suma de las Areas de las Paredes</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="areaTotalRevestimiento" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" required>
+                                                <span class="input-group-addon">m
+                                                    <sup>2</sup>
+                                                </span>
+                                            </div>
+                                        </div>
                                         <button type="submit" class="btn btn-primary center-block" id="estimar">Estimar</button>
                                     </form>
                                 </div>
@@ -457,6 +527,18 @@
                 // REPELLO
                 var sumaAreasRepello = 0;
                 var volumenRepello = 0;
+                // TECHO
+                var altoTecho = 0;
+                var largoTecho = 0;
+                var anchoTecho = 0;
+                var pendiente = 0;
+                var carriola = 0;
+                var hojasZinc = 0;
+                var longitudZinc = 0;
+                var caballetera = 0;
+                // REVESTIMIENTO
+                var sumaAreasRevestimiento = 0;
+                var pintura = 0;
 
                 // Asignacion de variables 
                 // CIMIENTO
@@ -480,6 +562,12 @@
                 espesorTopping = $("#espesorTopping").val();
                 // REPELLO
                 sumaAreasRepello = $("#sumaAreasRepello").val();
+                // TECHO
+                altoTecho = $("#altoTecho").val();
+                largoTecho = $("#largoTecho").val();
+                anchoTecho = $("#anchoTecho").val();
+                // REVESTIMIENTO
+                sumaAreasRevestimiento = $("#areaTotalRevestimiento").val();
 
                 // Calculos
                 // CIMIENTO
@@ -538,10 +626,26 @@
                         arena += ((4 * volumenRepello) / 3.65) * 1.1;
                         agua += ((0.75 * volumenRepello) / 3.65) * 1000 * 1.1;
                     }
+                    // TECHO
+                    if ($('input[name=aguasRadio]:checked', '#formulario').val() === "1") {
+                        pendiente = Math.sqrt(Math.pow(altoTecho, 2) + Math.pow(largoTecho / 2, 2));
+                        carriola = (pendiente * anchoTecho * 3.28084) + 6;
+                        hojasZinc = ((anchoTecho * 39.3701) / 42) * 1.1;
+                        longitudZinc = (pendiente * 3.28084) + 2;
+                        caballetera = (anchoTecho * 3.28084) + 2;
+                    } else {
+                        pendiente = Math.sqrt(Math.pow(altoTecho, 2) + Math.pow(largoTecho / 2, 2));
+                        carriola = ((pendiente * anchoTecho * 3.28084) + 6) * 2;
+                        hojasZinc = ((anchoTecho * 39.3701) / 42) * 1.1 * 2;
+                        longitudZinc = (pendiente * 3.28084) + 2;
+                        caballetera = (anchoTecho * 3.28084) + 2;
+                    }
+                    // REVESTIMIENTO
+                    pintura = ((sumaAreasRevestimiento / 10) * 2) / 3.7854118;
 
                     // Despliegue de resultados
                     // Asignacion de resultados a variable que sera convertida en una tabla
-                    var tabla = "<tr><td>Sacos de Cemento</td><td>" + Math.ceil(cemento) + "</td></tr><tr><td>Yardas de Arena</td><td>" + Math.ceil(arena) + "</td></tr><tr><td>Litros de Agua</td><td>" + Math.ceil(agua) + "</td></tr><tr><td>Yardas de Grava</td><td>" + Math.ceil(grava) + "</td></tr><tr><td>Varillas 3/8</td><td>" + Math.ceil(varilla) + "</td></tr><tr><td>Piezas de Baldosas</td><td>" + Math.ceil(unidades) + " (unitario)</td></tr><tr><td>Libras de Pegamento</td><td>" + Math.ceil(baldosa) + " (lb)</td></tr><tr><td>Libras de Lechada</td><td>" + Math.ceil(lechada) + " (lb)</td></tr>";
+                    var tabla = "<tr><td>Sacos de Cemento</td><td>" + Math.ceil(cemento) + "</td></tr><tr><td>Yardas de Arena</td><td>" + Math.ceil(arena) + "</td></tr><tr><td>Litros de Agua</td><td>" + Math.ceil(agua) + "</td></tr><tr><td>Yardas de Grava</td><td>" + Math.ceil(grava) + "</td></tr><tr><td>Varillas 3/8</td><td>" + Math.ceil(varilla) + "</td></tr><tr><td>Piezas de Baldosas</td><td>" + Math.ceil(unidades) + " (unitario)</td></tr><tr><td>Libras de Pegamento</td><td>" + Math.ceil(baldosa) + " (lb)</td></tr><tr><td>Libras de Lechada</td><td>" + Math.ceil(lechada) + " (lb)</td></tr><tr><td>Hojas de Zinc</td><td>" + Math.ceil(hojasZinc) + " laminas de Zinc de 42' x 26' x " + Math.ceil(longitudZinc) + "'<br>Diseño de Canal: " + $('input[name=tipoCanalRadio]:checked').val() + "</td></tr><tr><td>Pies de Carriola</td><td>" + Math.ceil(carriola) + "</td></tr><tr><td>Pies de Caballete</td><td>" + Math.ceil(caballetera) + "</td></tr><tr><td>Galón de Pintura</td><td>" + Math.ceil(pintura) + "</td></tr>";
                     //Creacion del dom que sera convertido en canvas y luego en imagen
                     $("#tabla-panel").removeClass("hidden");
                     $("#tabla-container").empty();
