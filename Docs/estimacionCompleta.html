@@ -57,6 +57,13 @@
                                             <br>
                                             <small>Base</small>
                                         </h1>
+                                        <picture>
+                                            <img sizes="(max-width: 1380px) 100vw, 1380px" srcset="
+                                            ../Images/cimiento/cimiento_carhzg_c_scale,w_200.jpg 200w,
+                                            ../Images/cimiento/cimiento_carhzg_c_scale,w_937.jpg 937w,
+                                            ../Images/cimiento/cimiento_carhzg_c_scale,w_1380.jpg 1380w" src="../Images/cimiento/cimiento_carhzg_c_scale,w_1380.jpg"
+                                                alt="" class="img-responsive img-rounded">
+                                        </picture>
                                         <p class="lead text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tristique tempor
                                             neque, eget elementum erat vulputate at. Nam eget elementum tortor.</p>
                                         <div class="form-group">
@@ -356,7 +363,8 @@
                                         <div class="form-group">
                                             <label class="control-label" for="areaTotalRevestimiento">Suma de las Areas de las Paredes</label>
                                             <div class="input-group">
-                                                <input type="number" class="form-control" id="areaTotalRevestimiento" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" required>
+                                                <input type="number" class="form-control" id="areaTotalRevestimiento" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1"
+                                                    required>
                                                 <span class="input-group-addon">m
                                                     <sup>2</sup>
                                                 </span>
@@ -540,7 +548,7 @@
                 var sumaAreasRevestimiento = 0;
                 var pintura = 0;
 
-                // Asignacion de variables 
+                // Asignacion de variables
                 // CIMIENTO
                 alto = $("#profundidadEspesor").val();
                 ancho = $("#anchoEspesor").val();
