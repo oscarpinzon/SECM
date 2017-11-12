@@ -45,8 +45,7 @@
                     <h1 class="cover-heading">Pared</h1>
                 </div>
                 <div class="container-fluid">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tristique tempor neque, eget elementum
-                        erat vulputate at. Nam eget elementum tortor.</p>
+                    <p>Obras de construcción de forma vertical que se usan para la división de espacios y ejercen como límites de una vivienda.</p>
                     <div class="row">
                         <div class="col-md-6 col-md-offset-3">
                             <div class="panel panel-default" id="panel">
@@ -246,7 +245,7 @@
                     var litrosAgua = ((volumenMortero * 0.75) / 3.65) * 1000 * 1.1;
                     var varilla = (((longitud / 1.5) * altura) * 3.28084) / 30;
                     // Variable donde se almacenan los resultados para ser anexados al DOM
-                    var tabla = "<tr><td>Bolsas de Cemento</td><td>" + Math.ceil(bolsasCemento) + "</td></tr><tr><td>Yardas Cubicas de Arena</td><td>" + Math.ceil(yardasArena) + "</td></tr><tr><td>Litros de Agua</td><td>" + Math.ceil(litrosAgua) + "</td></tr><tr><td>Varillas 3/8</td><td>" + Math.ceil(varilla) + "</td></tr>";
+                    var tabla = "<tr><td>Bolsas de Cemento</td><td>" + Math.ceil(bolsasCemento) + "</td></tr><tr><td>Yardas Cubicas de Arena</td><td>" + Math.ceil(yardasArena) + "</td></tr><tr><td>Litros de Agua</td><td>" + Math.ceil(litrosAgua) + "</td></tr><tr><td>Barras 3/8</td><td>" + Math.ceil(varilla) + "</td></tr><tr><td>Bloques de 4</td><td>" + Math.ceil(bloquesde4) + "</td></tr>";
                     //Creacion del dom que sera convertido en canvas y luego en imagen
                     $("#tabla-panel").removeClass("hidden");
                     $("#tabla-container").empty();

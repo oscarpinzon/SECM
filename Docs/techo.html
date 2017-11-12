@@ -47,8 +47,8 @@
                     <h1 class="cover-heading">Techo</h1>
                 </div>
                 <div class="container-fluid">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tristique tempor neque, eget elementum
-                        erat vulputate at. Nam eget elementum tortor.</p>
+                    <p>Parte más esencial de una casa y es la responsable principal del confort interior. Es un revestimiento
+                        para cubrir el interior de la casa en la parte superior.</p>
                     <div class="row">
                         <div class="col-md-6 col-md-offset-3">
                             <div class="panel panel-default">
@@ -168,8 +168,8 @@
     <script src="../Js/html2canvas.js"></script>
     <script>
         // Cambio de la propiedad position debido al tamaño del formulario
-        $("#footer").css("position","static");
-        $("#header").css("position","static");
+        $("#footer").css("position", "static");
+        $("#header").css("position", "static");
         //Logica que ocurre al hacer click en estimar
         $("#estimar").click(function () {
             if ($('#formulario').validator('validate').has('.has-error').length) {
@@ -196,47 +196,30 @@
                     hojasZinc = ((ancho * 39.3701) / 42) * 1.1;
                     longitudZinc = (pendiente * 3.28084) + 2;
                     caballetera = (ancho * 3.28084) + 2;
-                    var tabla = "<tr><td>Hojas de Zinc</td><td>" + Math.ceil(hojasZinc) + " laminas de Zinc de 42' x 26' x " + Math.ceil(longitudZinc) + "'<br>Diseño de Canal: " + $('input[name=tipoCanalRadio]:checked').val() + "</td></tr><tr><td>Pies de Carriola</td><td>" + Math.ceil(carriola) + "</td></tr><tr><td>Pies de Caballete</td><td>" + Math.ceil(caballetera) + "</td></tr>";
-                    //Creacion del dom que sera convertido en canvas y luego en imagen
-                    $("#tabla-panel").removeClass("hidden");
-                    $("#tabla-container").empty();
-                    $("#tabla-container").append(tabla);
-                    html2canvas($("#tabla-panel"), {
-                        onrendered: function (canvas) {
-                            $("#tabla-panel").addClass("hidden");
-                            $("#img-out").empty();
-                            // Converts canvas to an image
-                            var image = new Image();
-                            image.src = canvas.toDataURL("image/png");
-                            image.className += "img-responsive center-block";
-                            $("#img-out").append(image);
-                            $('#myModal').modal('show');
-                        }
-                    });
                 } else {
                     pendiente = Math.sqrt(Math.pow(alto, 2) + Math.pow(largo / 2, 2));
                     carriola = ((pendiente * ancho * 3.28084) + 6) * 2;
                     hojasZinc = ((ancho * 39.3701) / 42) * 1.1 * 2;
                     longitudZinc = (pendiente * 3.28084) + 2;
                     caballetera = (ancho * 3.28084) + 2;
-                    var tabla = "<tr><td>Hojas de Zinc</td><td>" + Math.ceil(hojasZinc) + " laminas de Zinc de 42' x 26' x " + Math.ceil(longitudZinc) + "'<br>Diseño de Canal: " + $('input[name=tipoCanalRadio]:checked').val() + "</td></tr><tr><td>Pies de Carriola</td><td>" + Math.ceil(carriola) + "</td></tr><tr><td>Pies de Caballete</td><td>" + Math.ceil(caballetera) + "</td></tr>";
-                    //Creacion del dom que sera convertido en canvas y luego en imagen
-                    $("#tabla-panel").removeClass("hidden");
-                    $("#tabla-container").empty();
-                    $("#tabla-container").append(tabla);
-                    html2canvas($("#tabla-panel"), {
-                        onrendered: function (canvas) {
-                            $("#tabla-panel").addClass("hidden");
-                            $("#img-out").empty();
-                            // Converts canvas to an image
-                            var image = new Image();
-                            image.src = canvas.toDataURL("image/png");
-                            image.className += "img-responsive center-block";
-                            $("#img-out").append(image);
-                            $('#myModal').modal('show');
-                        }
-                    });
                 }
+                var tabla = "<tr><td>Hojas de Zinc</td><td>" + Math.ceil(hojasZinc) + " laminas de Zinc de 42' x 26' x " + Math.ceil(longitudZinc) + "<br>Diseño de Canal: " + $('input[name=tipoCanalRadio]:checked').val() + "</td></tr><tr><td>Pies de Carriola</td><td>" + Math.ceil(carriola) + " ft</td></tr><tr><td>Pies de Caballete</td><td>" + Math.ceil(caballetera) + " ft</td></tr>";
+                //Creacion del dom que sera convertido en canvas y luego en imagen
+                $("#tabla-panel").removeClass("hidden");
+                $("#tabla-container").empty();
+                $("#tabla-container").append(tabla);
+                html2canvas($("#tabla-panel"), {
+                    onrendered: function (canvas) {
+                        $("#tabla-panel").addClass("hidden");
+                        $("#img-out").empty();
+                        // Converts canvas to an image
+                        var image = new Image();
+                        image.src = canvas.toDataURL("image/png");
+                        image.className += "img-responsive center-block";
+                        $("#img-out").append(image);
+                        $('#myModal').modal('show');
+                    }
+                });
             }
         });
     </script>

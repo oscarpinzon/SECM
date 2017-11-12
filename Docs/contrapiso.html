@@ -48,8 +48,7 @@
                     <h2>Contrapiso</h2>
                 </div>
                 <div class="container-fluid">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tristique tempor neque, eget elementum
-                        erat vulputate at. Nam eget elementum tortor.</p>
+                    <p>Obras de albañilería que se realiza para separar el suelo del piso de una casa, normalmente hecha de concreto.</p>
                     <div class="row">
                         <div class="col-md-6 col-md-offset-3">
                             <div class="panel panel-default">
@@ -161,7 +160,7 @@
                 arena = ((2.6 * areaTotal) / 5.216) * 1.1;
                 grava = ((3.51 * areaTotal) / 5.216) * 1.1;
                 agua = ((1.05 * areaTotal) / 5.216) * 1.1 * 1000;
-                var tabla = "<tr><td>Sacos de Cemento</td><td>" + Math.ceil(cemento) + "</td></tr><tr><td>Yardas Cubicas de Arena</td><td>" + Math.ceil(arena) + "</td></tr><tr><td>Yardas Cubicas de Grava</td><td>" + Math.ceil(grava) + "</td></tr><tr><td>Litros de Agua</td><td>" + Math.ceil(agua) + "</td></tr>";
+                var tabla = "<tr><td>Sacos de Cemento</td><td>" + Math.ceil(cemento) + "</td></tr><tr><td>Yardas Cubicas de Arena</td><td>" + Math.ceil(arena) + " yd<sup>3</sup></td></tr><tr><td>Yardas Cubicas de Grava</td><td>" + Math.ceil(grava) + " yd<sup></sup></td></tr><tr><td>Litros de Agua</td><td>" + Math.ceil(agua) + " L</td></tr>";
                 //Creacion del dom que sera convertido en canvas y luego en imagen
                 $("#tabla-panel").removeClass("hidden");
                 $("#tabla-container").empty();

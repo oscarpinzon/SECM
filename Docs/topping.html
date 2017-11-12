@@ -48,8 +48,7 @@
                     <h2>Topping</h2>
                 </div>
                 <div class="container-fluid">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tristique tempor neque, eget elementum
-                        erat vulputate at. Nam eget elementum tortor.</p>
+                    <p>Laminado de piso hecho de arena con cemento para nivelar el piso antes de poner la cerámica.</p>
                     <div class="row">
                         <div class="col-md-6 col-md-offset-3">
                             <div class="panel panel-default">
@@ -80,7 +79,7 @@
                             <!-- Results Panel -->
                             <div class="panel panel-default hidden" id="tabla-panel">
                                 <div class="panel-body">
-                                    <table class="table text-center">
+                                    <table class="table">
                                         <thead>
                                             <tr>
                                                 <th>Materiales</th>
@@ -159,7 +158,7 @@
                 cemento = (areaTotal / 5.3) * 35.7 * 1.1;
                 arena = ((6 * areaTotal) / 5.3) * 1.1;
                 agua = ((1.2 * areaTotal) / 5.3) * 1000 * 1.1;
-                var tabla = "<tr><td>Sacos de Cemento</td><td>" + Math.ceil(cemento) + "</td></tr><tr><td>Yardas de Arena</td><td>" + Math.ceil(arena) + "</td></tr><tr><td>Litros de Agua</td><td>" + Math.ceil(agua) + "</td></tr>";
+                var tabla = "<tr><td>Sacos de Cemento</td><td>" + Math.ceil(cemento) + "</td></tr><tr><td>Yardas de Arena</td><td>" + Math.ceil(arena) + " yd<sup>3</sup></td></tr><tr><td>Litros de Agua</td><td>" + Math.ceil(agua) + " L</td></tr>";
                 //Creacion del dom que sera convertido en canvas y luego en imagen
                 $("#tabla-panel").removeClass("hidden");
                 $("#tabla-container").empty();

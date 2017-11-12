@@ -47,8 +47,7 @@
                     <h1 class="cover-heading">Repello</h1>
                 </div>
                 <div class="container-fluid">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tristique tempor neque, eget elementum
-                        erat vulputate at. Nam eget elementum tortor.</p>
+                    <p>Revestimiento de mortero que se aplica a las paredes del lado interno y externo.</p>
                     <div class="row">
                         <div class="col-md-6 col-md-offset-3">
                             <div class="panel panel-default">
@@ -178,7 +177,7 @@
                     cemento = ((volumenRepello / 3.65) * 35.7) * 1.1;
                     arena = ((4 * volumenRepello) / 3.65) * 1.1;
                     agua = ((0.75 * volumenRepello) / 3.65) * 1000 * 1.1;
-                    var tabla = "<tr><td>Sacos de Cemento</td><td>" + Math.ceil(cemento) + "</td></tr><tr><td>Yardas Cubicas de Arena</td><td>" + Math.ceil(arena) + "</td></tr><tr><td>Litros de Agua</td><td>" + Math.ceil(agua) + "</td></tr>";
+                    var tabla = "<tr><td>Sacos de Cemento</td><td>" + Math.ceil(cemento) + "</td></tr><tr><td>Yardas Cubicas de Arena</td><td>" + Math.ceil(arena) + " yd<sup>3</sup></td></tr><tr><td>Litros de Agua</td><td>" + Math.ceil(agua) + " L</td></tr>";
                     //Creacion del dom que sera convertido en canvas y luego en imagen
                     $("#tabla-panel").removeClass("hidden");
                     $("#tabla-container").empty();

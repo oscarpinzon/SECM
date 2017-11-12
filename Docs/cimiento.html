@@ -47,8 +47,7 @@
                     <h1 class="cover-heading">Cimiento (Base)</h1>
                 </div>
                 <div class="container-fluid">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tristique tempor neque, eget elementum
-                        erat vulputate at. Nam eget elementum tortor.</p>
+                    <p>Bases que mantienen con fuerza las construcciones y soporta toda la estructura superior</p>
                     <div class="row">
                         <div class="col-md-6 col-md-offset-3">
                             <div class="panel panel-default">
@@ -224,7 +223,7 @@
                     grava = ((volumen * 2.5) / 4.02) * 1.1;
                     agua = ((volumen * 0.82) / 4.02) * 1000 * 1.1;
                     // Despliegue de resultados
-                    var tabla = "<tr><td>Sacos de Cemento</td><td>" + Math.ceil(cemento) + "</td></tr><tr><td>Yardas de Arena</td><td>" + Math.ceil(arena) + "</td></tr><tr><td>Litros de Agua</td><td>" + Math.ceil(agua) + "</td></tr><tr><td>Yardas de Grava</td><td>" + Math.ceil(grava) + "</td></tr>";
+                    var tabla = "<tr><td>Sacos de Cemento</td><td>" + Math.ceil(cemento) + "</td></tr><tr><td>Yardas Cubicas de Arena</td><td>" + Math.ceil(arena) + " yd<sup>3</sup></td></tr><tr><td>Litros de Agua</td><td>" + Math.ceil(agua) + " L</td></tr><tr><td>Yardas Cubicas de Grava</td><td>" + Math.ceil(grava) + " yd<sup>3</sup></td></tr>";
                     //Creacion del dom que sera convertido en canvas y luego en imagen
                     $("#tabla-panel").removeClass("hidden");
                     $("#tabla-container").empty();
