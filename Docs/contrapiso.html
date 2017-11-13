@@ -25,7 +25,7 @@
     <div class="site-wrapper">
         <div class="site-wrapper-inner">
             <div class="cover-container">
-                <div class="masthead clearfix">
+                <div class="masthead clearfix" id="header">
                     <div class="inner">
                         <h3 class="masthead-brand">SECM</h3>
                         <nav>
@@ -44,22 +44,34 @@
                     </div>
                 </div>
                 <div class="inner cover">
-                    <h1 class="cover-heading">Pisos</h1>
-                    <h2>Contrapiso</h2>
+                    <h1 class="cover-heading">Estimación por Partes</h1>
                 </div>
                 <div class="container-fluid">
-                    <p>Obras de albañilería que se realiza para separar el suelo del piso de una casa, normalmente hecha de concreto.</p>
                     <div class="row">
-                        <div class="col-md-6 col-md-offset-3">
+                        <div class="col-md-8 col-md-offset-2">
                             <div class="panel panel-default">
                                 <div class="panel-body">
+                                    <h1 class="cover-heading text-center">Piso
+                                        <br>
+                                        <small>Contrapiso</small>
+                                    </h1>
+                                    <picture>
+                                        <img sizes="(max-width: 1000px) 100vw, 1000px" srcset="
+                                                ../Images/contrapiso/contrapiso_nhwj5x_c_scale,w_200.jpg 200w,
+                                                ../Images/contrapiso/contrapiso_nhwj5x_c_scale,w_768.jpg 768w,
+                                                ../Images/contrapiso/contrapiso_nhwj5x_c_scale,w_1000.jpg 1000w" src="../Images/contrapiso/contrapiso_nhwj5x_c_scale,w_1000.jpg"
+                                            alt="Imagen de un Contrapiso" class="img-responsive img-rounded">
+                                    </picture>
+                                    <p class="lead text-center">Obras de albañilería que se realiza para separar el suelo del piso de una casa, normalmente
+                                        hecha de concreto.</p>
                                     <form class="form" data-toggle="validator" role="form" onsubmit="return false" id="formulario">
                                         <div class="form-group">
                                             <label class="control-label" for="area">Area</label>
                                             <div class="input-group">
                                                 <input type="number" class="form-control" id="area" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" inputmode="numeric"
                                                     required>
-                                                <span class="input-group-addon">m<sup>2</sup>
+                                                <span class="input-group-addon">m
+                                                    <sup>2</sup>
                                                 </span>
                                             </div>
                                         </div>
@@ -98,7 +110,7 @@
                     <span class="glyphicon glyphicon-arrow-left" aria-label="regresar">
                     </span>
                 </a>
-                <div class="mastfoot">
+                <div class="mastfoot" id="footer">
                     <div class="inner">
                         <p>Creado por Oscar Pinzón y Ricardo Yi</p>
                     </div>
@@ -138,6 +150,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
     <script src="../Js/html2canvas.js"></script>
     <script>
+        // Cambio de la propiedad position debido al tamaño del formulario
+        $("#footer").css("position", "static");
+        $("#header").css("position", "static");
+
         $("#estimar").click(function () {
             if ($('#formulario').validator('validate').has('.has-error').length) {
                 console.log("formulario invalido");
