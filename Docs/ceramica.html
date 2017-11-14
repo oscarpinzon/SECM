@@ -25,7 +25,7 @@
     <div class="site-wrapper">
         <div class="site-wrapper-inner">
             <div class="cover-container">
-                <div class="masthead clearfix">
+                <div class="masthead clearfix" id="header">
                     <div class="inner">
                         <h3 class="masthead-brand">SECM</h3>
                         <nav>
@@ -100,7 +100,7 @@
                     <span class="glyphicon glyphicon-arrow-left" aria-label="regresar">
                     </span>
                 </a>
-                <div class="mastfoot">
+                <div class="mastfoot" id="footer">
                     <div class="inner">
                         <p>Creado por Oscar Pinzón y Ricardo Yi</p>
                     </div>
@@ -140,6 +140,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
     <script src="../Js/html2canvas.js"></script>
     <script>
+        // Cambio de la propiedad position debido al tamaño del formulario
+        $("#footer").css("position", "static");
+        $("#header").css("position", "static");
         $("#estimar").click(function () {
             if ($('#formulario').validator('validate').has('.has-error').length) {
                 console.log("formulario invalido");
