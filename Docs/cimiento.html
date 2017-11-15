@@ -72,54 +72,46 @@
                                             </div>
                                         </div>
                                         <p class="text-center">
-                                            <strong>Tipo de Cimiento</strong>
+                                            <strong>Características de la corrida</strong>
                                         </p>
-                                        <div class="form-group text-center">
-                                            <div class="radio-inline">
-                                                <label class="control-label">
-                                                    <input type="radio" name="tipoCimientoRadio" id="corridaRadio" value="corrida" checked> Corrida
-                                                </label>
-                                            </div>
-                                            <div class="radio-inline">
-                                                <label class="control-label">
-                                                    <input type="radio" name="tipoCimientoRadio" id="bloqueRadio" value="bloque"> Bloque
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div id="corridaSelected">
-                                            <p class="text-center">
-                                                <strong>Espesor de la Corrida</strong>
-                                            </p>
-                                            <div class="form-group">
-                                                <label class="control-label" for="largoEspesor">Largo</label>
-                                                <div class="input-group">
-                                                    <input type="number" class="form-control" id="largoEspesor" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" required>
-                                                    <span class="input-group-addon">m</span>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label class="control-label" for="largoEspesor">Largo</label>
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" id="largoEspesor" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" required>
+                                                        <span class="input-group-addon">m</span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="control-label" for="anchoEspesor">Ancho</label>
-                                                <div class="input-group">
-                                                    <input type="number" class="form-control" id="anchoEspesor" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" required>
-                                                    <span class="input-group-addon">m</span>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label class="control-label" for="anchoEspesor">Ancho</label>
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" id="anchoEspesor" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" required>
+                                                        <span class="input-group-addon">m</span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="control-label" for="profundidadEspesor">Profundidad</label>
-                                                <div class="input-group">
-                                                    <input type="number" class="form-control" id="profundidadEspesor" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1"
-                                                        required>
-                                                    <span class="input-group-addon">m</span>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label class="control-label" for="profundidadEspesor">Profundidad</label>
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" id="profundidadEspesor" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1"
+                                                            required>
+                                                        <span class="input-group-addon">m</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="bloqueSelected">
-                                            <div class="form-group">
-                                                <label class="control-label" for="alturaZanja">Altura de la Zanja</label>
-                                                <div class="input-group">
-                                                    <input type="number" class="form-control" id="alturaZanja" pattern="[0-9]*" step="0.1" min="0.1" inputmode="numeric">
-                                                    <span class="input-group-addon">m</span>
-                                                </div>
+                                        <p class="text-center">
+                                            <strong>Características de los bloques</strong>
+                                        </p>
+                                        <div class="form-group">
+                                            <label class="control-label" for="alturaZanja">Altura de la Zanja</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="alturaZanja" pattern="[0-9]*" step="0.1" min="0.1" inputmode="numeric" required>
+                                                <span class="input-group-addon">m</span>
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary center-block" id="estimar">Estimar</button>
@@ -187,74 +179,61 @@
         // Cambio de la propiedad position debido al tamaño del formulario
         $("#footer").css("position", "static");
         $("#header").css("position", "static");
-        // Manejo de la logica del tipo de corrida seleccionada
-        $("#bloqueSelected").hide();
-        $("input[name=tipoCimientoRadio]").on("change", function () {
-            var test = $(this).val();
-            if (test == "corrida") {
-                $("#bloqueSelected").hide();
-                $("#corridaSelected").slideDown();
-                $("#largoEspesor").prop('required', true);
-                $("#anchoEspesor").prop('required', true);
-                $("#profundidadEspesor").prop('required', true);
-                $("#alturaZanja").prop('required', false);
-            }
-            else {
-                $("#corridaSelected").hide();
-                $("#bloqueSelected").slideDown();
-                $("#largoEspesor").prop('required', false);
-                $("#anchoEspesor").prop('required', false);
-                $("#profundidadEspesor").prop('required', false);
-                $("#alturaZanja").prop('required', true);
-            }
-        });
+        // Lo que ocurre al hacer click sobre estimar
         $("#estimar").click(function () {
             if ($('#formulario').validator('validate').has('.has-error').length) {
                 console.log("formulario invalido");
             }
             else {
-                if ($('input[name=tipoCimientoRadio]:checked', '#formulario').val() === "corrida") {
-                    // Inicializacion de variables
-                    var alto = 0;
-                    var ancho = 0;
-                    var largo = 0;
-                    var volumen = 0;
-                    var cemento = 0;
-                    var arena = 0;
-                    var grava = 0;
-                    var agua = 0;
-                    // Asignacion de variables
-                    alto = $("#profundidadEspesor").val();
-                    ancho = $("#anchoEspesor").val();
-                    largo = $("#largoEspesor").val();
-                    // Calculos
-                    volumen = alto * ancho * largo;
-                    cemento = (volumen / 4.02) * 35.7 * 1.1;
-                    arena = ((volumen * 2) / 4.02) * 1.1;
-                    grava = ((volumen * 2.5) / 4.02) * 1.1;
-                    agua = ((volumen * 0.82) / 4.02) * 1000 * 1.1;
-                    // Despliegue de resultados
-                    var tabla = "<tr><td>Sacos de Cemento</td><td>" + Math.ceil(cemento) + "</td></tr><tr><td>Yardas Cubicas de Arena</td><td>" + Math.ceil(arena) + " yd<sup>3</sup></td></tr><tr><td>Litros de Agua</td><td>" + Math.ceil(agua) + " L</td></tr><tr><td>Yardas Cubicas de Grava</td><td>" + Math.ceil(grava) + " yd<sup>3</sup></td></tr>";
-                    //Creacion del dom que sera convertido en canvas y luego en imagen
-                    $("#tabla-panel").removeClass("hidden");
-                    $("#tabla-container").empty();
-                    $("#tabla-container").append(tabla);
-                    html2canvas($("#tabla-panel"), {
-                        onrendered: function (canvas) {
-                            $("#tabla-panel").addClass("hidden");
-                            $("#img-out").empty();
-                            // Convierte el canvas en una imagen
-                            var image = new Image();
-                            image.src = canvas.toDataURL("image/png");
-                            image.className += "img-responsive center-block";
-                            $("#img-out").append(image);
-                            $('#myModal').modal('show');
-                        }
-                    });
-                }
-                else {
-                    console.log("Coming Soon");
-                }
+                // Inicializacion de variables
+                var alto = 0;
+                var ancho = 0;
+                var largo = 0;
+                var alturaZanja = 0;
+                var volumen = 0;
+                var cemento = 0;
+                var arena = 0;
+                var grava = 0;
+                var agua = 0;
+                var barrasMedias = 0;
+                var aros = 0;
+                var barrasTresOctavos = 0;
+                var areaTotalCimiento = 0;
+                var bloques6 = 0;
+                // Asignacion de variables
+                alto = $("#profundidadEspesor").val();
+                ancho = $("#anchoEspesor").val();
+                largo = $("#largoEspesor").val();
+                alturaZanja = $("#alturaZanja").val();
+                // Calculos
+                volumen = alto * ancho * largo;
+                cemento = (volumen / 4.02) * 35.7 * 1.4;
+                arena = ((volumen * 2) / 4.02) * 1.4;
+                grava = ((volumen * 2.5) / 4.02) * 1.4;
+                agua = ((volumen * 0.82) / 4.02) * 1000 * 1.4;
+                barrasMedias = (largo * 3.28084 * 4 * 1.1) / 30;
+                aros = largo / 0.2;
+                barrasTresOctavos = (aros * 0.8 * 3.28084 * 1.1) / 30;
+                areaTotalCimiento = alturaZanja * largo;
+                bloques6 = (areaTotalCimiento / 0.01242842) * 1.05;
+                // Despliegue de resultados
+                var tabla = "<tr><td>Sacos de Cemento</td><td>" + Math.ceil(cemento) + "</td></tr><tr><td>Yardas Cubicas de Arena</td><td>" + Math.ceil(arena) + " yd<sup>3</sup></td></tr><tr><td>Litros de Agua</td><td>" + Math.ceil(agua) + " L</td></tr><tr><td>Yardas Cubicas de Grava</td><td>" + Math.ceil(grava) + " yd<sup>3</sup></td></tr><tr><td>Bloques de 6</td><td>" + Math.ceil(bloques6) + "</td></tr><tr><td>Varillas 1/2</td><td>" + Math.ceil(barrasMedias) + "</td></tr><tr><td>Varillas 3/8</td><td>" + Math.ceil(barrasTresOctavos) + "</td></tr>";
+                //Creacion del dom que sera convertido en canvas y luego en imagen
+                $("#tabla-panel").removeClass("hidden");
+                $("#tabla-container").empty();
+                $("#tabla-container").append(tabla);
+                html2canvas($("#tabla-panel"), {
+                    onrendered: function (canvas) {
+                        $("#tabla-panel").addClass("hidden");
+                        $("#img-out").empty();
+                        // Convierte el canvas en una imagen
+                        var image = new Image();
+                        image.src = canvas.toDataURL("image/png");
+                        image.className += "img-responsive center-block";
+                        $("#img-out").append(image);
+                        $('#myModal').modal('show');
+                    }
+                });
             }
         });
     </script>
