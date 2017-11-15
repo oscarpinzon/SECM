@@ -66,23 +66,28 @@
                                     <p class="lead text-center">Obras de albañilería que se realiza para separar el suelo del piso de una casa, normalmente
                                         hecha de concreto.</p>
                                     <form class="form" data-toggle="validator" role="form" onsubmit="return false" id="formulario">
-                                        <div class="form-group">
-                                            <label class="control-label" for="areaTotal">
-                                                Area
-                                            </label>
-                                            <div class="input-group">
-                                                <input type="number" class="form-control" id="areaTotal" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" required>
-                                                <span class="input-group-addon">m
-                                                    <sup>2</sup>
-                                                </span>
+                                        <div class="row">
+                                            <div class="col-xs-6">
+                                                <div class="form-group">
+                                                    <label class="control-label" for="areaTotal">
+                                                        Area
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" id="areaTotal" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" required>
+                                                        <span class="input-group-addon">m<sup>2</sup>
+                                                        </span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="control-label" for="espesor">Espesor
-                                            </label>
-                                            <div class="input-group">
-                                                <input type="number" class="form-control" id="espesor" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" required>
-                                                <span class="input-group-addon">cm</span>
+                                            <div class="col-xs-6">
+                                                <div class="form-group">
+                                                    <label class="control-label" for="espesor">Espesor
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" id="espesor" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" required>
+                                                        <span class="input-group-addon">cm</span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary center-block" id="estimar">Estimar</button>
