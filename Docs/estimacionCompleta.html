@@ -65,13 +65,6 @@
                                                 alt="Imagen de una Base" class="img-responsive img-rounded">
                                         </picture>
                                         <p class="lead text-center">Bases que mantienen con fuerza las construcciones y soporta toda la estructura superior.</p>
-                                        <div class="form-group">
-                                            <label class="control-label" for="longitud">Longitud</label>
-                                            <div class="input-group">
-                                                <input type="number" class="form-control" id="longitud" pattern="[0-9]*" inputmode="numeric" step="0.1" min="0.1" required>
-                                                <span class="input-group-addon">m</span>
-                                            </div>
-                                        </div>
                                         <p class="text-center">
                                             <strong>Características de la corrida</strong>
                                         </p>
@@ -618,10 +611,10 @@
                 // Calculos
                 // CIMIENTO
                 volumen = alto * ancho * largo;
-                cemento = (volumen / 4.02) * 35.7 * 1.4;
-                arena = ((volumen * 2) / 4.02) * 1.4;
-                grava = ((volumen * 2.5) / 4.02) * 1.4;
-                agua = ((volumen * 0.82) / 4.02) * 1000 * 1.4;
+                cemento = (volumen / 4.02) * 35.7 * 1.01;
+                arena = ((volumen * 2) / 4.02) * 1.05;
+                grava = ((volumen * 2.5) / 4.02) * 1.05;
+                agua = ((volumen * 0.82) / 4.02) * 1000 * 1.05;
                 barrasMedias = (largo * 3.28084 * 4 * 1.1) / 30;
                 aros = largo / 0.2;
                 barrasTresOctavos = (aros * 0.8 * 3.28084 * 1.1) / 30;
